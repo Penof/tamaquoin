@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.url">jdbc:mysql://localhost:3306/tamaquoin?serverTimezone=UTC</property>
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="connection.username">root</property>
+        <property name="connection.password">root</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
+        <mapping class="entities.AnnonceEntity"/>
+        <mapping class="entities.AssocAnnonceCritereEntity"/>
+        <mapping class="entities.AssocSouscategorieCritereEntity"/>
+        <mapping class="entities.CategorieEntity"/>
+        <mapping class="entities.CoordonneeEntity"/>
+        <mapping class="entities.CritereEntity"/>
+        <mapping class="entities.SousCategorieEntity"/>
+        <mapping class="entities.UtilisateurEntity"/>
+        <mapping class="entities.ValeurPossibleEntity"/>
+        <!-- <property name="connection.username"/> -->
+        <!-- <property name="connection.password"/> -->
+
+        <!-- DB schema will be updated if needed -->
+        <!-- <property name="hbm2ddl.auto">update</property> -->
+    </session-factory>
+</hibernate-configuration>
