@@ -10,6 +10,18 @@ public class AssocSouscategorieCritereEntity {
     private Integer idSousCategorie;
     private Integer idCritere;
 
+    public void setIdAssocSousCategorieCritere(int idAssocSousCategorieCritere) {
+        this.idAssocSousCategorieCritere = idAssocSousCategorieCritere;
+    }
+
+    public void setIdSousCategorie(int idSousCategorie) {
+        this.idSousCategorie = idSousCategorie;
+    }
+
+    public void setIdCritere(int idCritere) {
+        this.idCritere = idCritere;
+    }
+
     @Id
     @Column(name = "id_assoc_sousCategorie_critere")
     public Integer getIdAssocSousCategorieCritere() {

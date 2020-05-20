@@ -9,6 +9,10 @@ public class SousCategorieEntity {
     private Integer idSousCategorie;
     private String label;
 
+    public void setIdSousCategorie(int idSousCategorie) {
+        this.idSousCategorie = idSousCategorie;
+    }
+
     @Id
     @Column(name = "id_sous_categorie")
     public Integer getIdSousCategorie() {

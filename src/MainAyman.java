@@ -1,6 +1,7 @@
 import javax.swing.*;
 
-public class main {
+public class MainAyman {
+
     public static void main(String args[]){
 
         JFrame frame = new JFrame("app");

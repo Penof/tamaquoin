@@ -15,6 +15,25 @@ public class AnnonceEntity {
     private Double prix;
     private String photo;
 
+    public AnnonceEntity(String nom, Timestamp dateCreation, Integer nombreVu, Double prix) {
+        this.nom = nom;
+        this.dateCreation = dateCreation;
+        this.nombreVu = nombreVu;
+        this.prix = prix;
+    }
+
+    public void setIdAnnonce(int idAnnonce) {
+        this.idAnnonce = idAnnonce;
+    }
+
+    public void setNombreVu(int nombreVu) {
+        this.nombreVu = nombreVu;
+    }
+
+    public void setPrix(double prix) {
+        this.prix = prix;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_annonce")
@@ -98,13 +117,6 @@ public class AnnonceEntity {
                 Objects.equals(nombreVu, that.nombreVu) &&
                 Objects.equals(prix, that.prix) &&
                 Objects.equals(photo, that.photo);
-    }
-
-    public AnnonceEntity(String nom, Timestamp dateCreation, Integer nombreVu, Double prix) {
-        this.nom = nom;
-        this.dateCreation = dateCreation;
-        this.nombreVu = nombreVu;
-        this.prix = prix;
     }
 
     @Override

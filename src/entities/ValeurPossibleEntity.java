@@ -12,6 +12,10 @@ public class ValeurPossibleEntity {
     private Byte valeurBooleen;
     private Double valeurDouble;
 
+    public void setIdValeur(int idValeur) {
+        this.idValeur = idValeur;
+    }
+
     @Id
     @Column(name = "id_valeur")
     public Integer getIdValeur() {

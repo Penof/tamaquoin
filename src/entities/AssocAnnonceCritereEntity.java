@@ -14,6 +14,18 @@ public class AssocAnnonceCritereEntity {
     private Double valeurDouble;
     private Byte valeurBooleen;
 
+    public void setIdAssocAnnonceCritere(int idAssocAnnonceCritere) {
+        this.idAssocAnnonceCritere = idAssocAnnonceCritere;
+    }
+
+    public void setIdAnnonce(int idAnnonce) {
+        this.idAnnonce = idAnnonce;
+    }
+
+    public void setIdCritere(int idCritere) {
+        this.idCritere = idCritere;
+    }
+
     @Id
     @Column(name = "id_assoc_annonce_critere")
     public Integer getIdAssocAnnonceCritere() {

@@ -9,6 +9,10 @@ public class CategorieEntity {
     private Integer idCategorie;
     private String label;
 
+    public void setIdCategorie(int idCategorie) {
+        this.idCategorie = idCategorie;
+    }
+
     @Id
     @Column(name = "id_categorie")
     public Integer getIdCategorie() {

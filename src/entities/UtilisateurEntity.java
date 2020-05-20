@@ -11,6 +11,10 @@ public class UtilisateurEntity {
     private String mail;
     private String mdp;
 
+    public void setIdUtilisateur(int idUtilisateur) {
+        this.idUtilisateur = idUtilisateur;
+    }
+
     @Id
     @Column(name = "id_utilisateur")
     public Integer getIdUtilisateur() {

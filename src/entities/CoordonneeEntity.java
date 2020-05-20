@@ -10,6 +10,10 @@ public class CoordonneeEntity {
     private String pays;
     private String ville;
 
+    public void setIdCoordonnee(int idCoordonnee) {
+        this.idCoordonnee = idCoordonnee;
+    }
+
     @Id
     @Column(name = "id_coordonnee")
     public Integer getIdCoordonnee() {

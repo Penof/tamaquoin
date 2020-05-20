@@ -12,6 +12,10 @@ public class CritereEntity {
     private String unite;
     private String typeColonne;
 
+    public void setIdCritere(int idCritere) {
+        this.idCritere = idCritere;
+    }
+
     @Id
     @Column(name = "id_critere")
     public Integer getIdCritere() {
