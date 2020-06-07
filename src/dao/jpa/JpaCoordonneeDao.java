@@ -23,7 +23,7 @@ public class JpaCoordonneeDao extends JpaDao<CoordonneeEntity> implements Coordo
     @Override
     public Collection<CoordonneeEntity> findAll() {
         Transaction tx = session.beginTransaction();
-        Query query = session.createQuery("SELECT a FROM CritereEntity a");
+        Query query = session.createQuery("SELECT a FROM CoordonneeEntity a");
         tx.commit();
         return (Collection<CoordonneeEntity>) query.getResultList();
 

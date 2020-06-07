@@ -1,6 +1,8 @@
 package entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -11,12 +13,26 @@ public class CritereEntity {
     private String typeFront;
     private String unite;
     private String typeColonne;
+    private List<SousCategorieEntity> sousCategories;
 
     public void setIdCritere(int idCritere) {
         this.idCritere = idCritere;
     }
 
+
+
+
+    @ManyToMany(mappedBy = "criteres")
+    public List<SousCategorieEntity> getSousCategories() {
+        return sousCategories;
+    }
+
+    public void setSousCategories(List<SousCategorieEntity> sousCategories) {
+        this.sousCategories = sousCategories;
+    }
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_critere")
     public Integer getIdCritere() {
         return idCritere;
@@ -81,5 +97,22 @@ public class CritereEntity {
     @Override
     public int hashCode() {
         return Objects.hash(idCritere, label, typeFront, unite, typeColonne);
+    }
+
+
+    public void addSousCategorie(SousCategorieEntity sousCategorie) {
+        this.sousCategories.add(sousCategorie);
+        sousCategorie.getCriteres().add(this);
+    }
+
+    public CritereEntity() {
+    }
+
+    public CritereEntity(String label, String typeFront, String unite, String typeColonne) {
+        this.label = label;
+        this.typeFront = typeFront;
+        this.unite = unite;
+        this.typeColonne = typeColonne;
+        this.sousCategories = new ArrayList<>();
     }
 }

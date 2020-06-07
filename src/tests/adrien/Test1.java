@@ -1,11 +1,14 @@
 import dao.AnnonceDao;
 import dao.CoordonneeDao;
+import dao.CritereDao;
 import dao.SousCategorieDao;
 import dao.jpa.JpaAnnonceDao;
 import dao.jpa.JpaCoordonneeDao;
+import dao.jpa.JpaCritereDao;
 import dao.jpa.JpaSousCategorieDao;
 import entities.AnnonceEntity;
 import entities.CoordonneeEntity;
+import entities.CritereEntity;
 import entities.SousCategorieEntity;
 
 import java.sql.Timestamp;
@@ -20,30 +23,21 @@ public class Test1 {
         SousCategorieDao sousCategorieManager = new JpaSousCategorieDao();
         CoordonneeDao coordonneeManager = new JpaCoordonneeDao();
         AnnonceDao annonceManager = new JpaAnnonceDao();
-        CoordonneeEntity coordonnee = new CoordonneeEntity("France", "Lens");
-        coordonneeManager.create(coordonnee);
+        CritereDao critereManager  = new JpaCritereDao();
 
-        SousCategorieEntity sc = sousCategorieManager.find(SousCategorieEntity.class, 1);
-        CoordonneeEntity coordonneeGet = coordonneeManager.find(CoordonneeEntity.class, 1);
+        SousCategorieEntity sc = new SousCategorieEntity("moto");
+        CritereEntity c = new CritereEntity("test", "test","test", "test");
 
+        sc.addCritere(c);
 
-
-        AnnonceEntity annonce = new AnnonceEntity("nom",new Timestamp(System.currentTimeMillis()),"description",50.45,0);
-
-        coordonneeGet.addAnnonce(annonce);
-        coordonneeManager.update(coordonneeGet);
-        /*sc.addAnnonce(a);
-        sousCategorieManager.update(sc);
-        System.out.println(a.toString());
+        sousCategorieManager.create(sc);
 
 
-        //get liste categorie
-        List<SousCategorieEntity> listeSousCat = new ArrayList<SousCategorieEntity>();
-        listeSousCat = (List<SousCategorieEntity>) sousCategorieManager.findAll();
+
+        //List<AnnonceEntity> annonces = (List<AnnonceEntity>) ((JpaAnnonceDao) annonceManager).getAnnoncesByCriteres(null,null, null, 60.0, null);
+        //System.out.println(annonces);
 
 
-        //creation annonce
-        */
 // Afficher l’atelier avec ses machines et les taches sur les machines
 // Verifier dates de début des taches
 // Verifier dates de disponibilité des machines

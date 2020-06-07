@@ -13,6 +13,7 @@ public class SousCategorieEntity {
     private Integer idSousCategorie;
     private String label;
     private List<AnnonceEntity> annonces;
+    private List<CritereEntity> criteres;
 
     public void setIdSousCategorie(int idSousCategorie) {
         this.idSousCategorie = idSousCategorie;
@@ -25,6 +26,18 @@ public class SousCategorieEntity {
 
     public void setAnnonces(List<AnnonceEntity> annonces) {
         this.annonces = annonces;
+    }
+
+    @ManyToMany(cascade=CascadeType.ALL)
+    @JoinTable(name = "assoc_souscategorie_critere",
+            joinColumns = { @JoinColumn(name = "id_sous_categorie") },
+            inverseJoinColumns = { @JoinColumn(name = "id_critere") })
+    public List<CritereEntity> getCriteres() {
+        return criteres;
+    }
+
+    public void setCriteres(List<CritereEntity> criteres) {
+        this.criteres = criteres;
     }
 
     @Id
@@ -73,9 +86,16 @@ public class SousCategorieEntity {
 
     }
 
+    public void addCritere(CritereEntity critere) {
+        this.criteres.add(critere);
+        critere.getSousCategories().add(this);
+    }
+
     public SousCategorieEntity(String label) {
         this.label = label;
-        this.annonces = new ArrayList<AnnonceEntity>();
+        this.annonces = new ArrayList<>();
+        this.criteres = new ArrayList<>();
+
     }
 
     public SousCategorieEntity() {
