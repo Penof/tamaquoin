@@ -3,7 +3,7 @@ package create;
 public class newad {
     private String title;
     private String description;
-    private String price;
+    private Double price;
 
     private Integer categoryId;
     private Integer cityId;
@@ -26,7 +26,7 @@ public class newad {
         this.cityId = cityId;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -42,7 +42,7 @@ public class newad {
         return description;
     }
 
-    public String getPrice() {
+    public Double getPrice() {
         return price;
     }
 

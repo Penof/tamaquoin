@@ -1,10 +1,12 @@
+package ads;
+
 import entities.AnnonceEntity;
 
 import javax.swing.*;
 import java.sql.Timestamp;
 import java.util.List;
 
-public class ProductList {
+public class AdsList {
 
     private JLabel title;
     private JLabel price;
@@ -12,7 +14,7 @@ public class ProductList {
     private JLabel date;
     private JPanel panelMain;
 
-    public ProductList(String nom, double price, Timestamp date){
+    public AdsList(String nom, double price, Timestamp date){
         this.title.setText(nom);
         this.price.setText(String.valueOf(price));
         this.date.setText(date.toString());

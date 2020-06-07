@@ -1,11 +1,16 @@
 package create;
 
+import dao.SousCategorieDao;
+import dao.jpa.JpaSousCategorieDao;
+import entities.SousCategorieEntity;
+
 import java.awt.Font;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class createStep1 extends utils{
@@ -44,25 +49,21 @@ public class createStep1 extends utils{
     }
 
     public void init(){
-        System.out.println(this.ad.toString());
 
         this.frame =  new JFrame("app");
         this.categories = new HashMap<>();
 
-        //MOCK TO BE CHANGED ----- START
-        Map<Integer, String> obj = new HashMap<>();
-        obj.put(-1, "   Choisir une catégorie   ");
-        obj.put(1, "Voiture");
-        obj.put(2, "Moto");
-        obj.put(13, "Vélo");
-        obj.put(4, "Téléphonie");
-        obj.put(5, "Electronique");
-        //MOCK TO BE CHANGED ----- END
-        //Map<Integer, String> obj = getCategoriesList();
+        SousCategorieDao manager = new JpaSousCategorieDao();
+        List<SousCategorieEntity> list = new ArrayList<SousCategorieEntity>();
 
-        for (Map.Entry<Integer, String> elt : obj.entrySet()) {
-            this.categories_list.addItem(elt.getValue());
-            this.categories.put(elt.getKey(), elt.getValue());
+        list = (List<SousCategorieEntity>) manager.findAll();
+
+        this.categories_list.addItem("Choisir une catégorie");
+        this.categories.put(-1, "Choisir une catégorie");
+
+        for (SousCategorieEntity elt : list) {
+            this.categories_list.addItem(elt.getLabel());
+            this.categories.put(elt.getIdSousCategorie(), elt.getLabel());
         }
     }
 

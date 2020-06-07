@@ -1,6 +1,7 @@
 package mockDBB;
 
 import entities.AnnonceEntity;
+import entities.CritereEntity;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -16,7 +17,8 @@ public class DDB {
         return getAnnonces().get(0);
     }
 
-    public List<AnnonceEntity> getAnnonces(String category, String keyWord, String city, String prixMin, String prixMax) throws ParseException {
+    public List<AnnonceEntity> getAnnonces(String category, String keyWord, String city, String prixMin, String prixMax) {
+
         return getAnnonces();
     }
 
@@ -36,6 +38,24 @@ public class DDB {
             System.out.println("Error parsing date");
         };
 
+        return list;
+    }
+
+    public List<CritereDTO> getFilterByCategory(){
+        List<CritereDTO> list = new ArrayList<>();
+        CritereDTO critereDTO1 = new CritereDTO();
+        CritereEntity critereEntity = new CritereEntity();
+        critereEntity.setLabel("Marque");
+        critereEntity.setTypeFront("CheckBox");
+        critereEntity.setTypeColonne("String");
+        critereDTO1.critereEntity = critereEntity;
+        List<String> marques = new ArrayList<>();
+        marques.add("Audi");
+        marques.add("Power rober");
+        marques.add("BMW");
+        marques.add("Peugot");
+        critereDTO1.valeur = marques;
+        list.add(critereDTO1);
         return list;
     }
 }
