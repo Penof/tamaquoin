@@ -1,4 +1,10 @@
+import entities.AnnonceEntity;
+import mockDBB.DDB;
+
 import javax.swing.*;
+import java.awt.*;
+import java.text.ParseException;
+import java.util.List;
 
 public class home {
     private JPanel panelMain;
@@ -9,6 +15,7 @@ public class home {
     private JTextField textField3;
     private JButton rechercherButton;
     private JButton filtrerButton;
+    private JPanel list;
 
     public JPanel home() {
         return this.panelMain;
@@ -18,10 +25,23 @@ public class home {
         return panelMain;
     }
 
-    public static void main(String args[]){
+    public static void main(String args[]) throws ParseException {
 
         JFrame frame = new JFrame("app");
-        frame.setContentPane(new home().panelMain);
+        home home = new home();
+
+        DDB mockDDB = new DDB();
+        List<AnnonceEntity> annonces = mockDDB.getAnnonces(null,null,null,null,null);
+        home.list=new JPanel();
+
+        annonces.forEach(annonceEntity -> {
+            ProductList prl = new ProductList(annonceEntity.getNom(),annonceEntity.getPrix(),annonceEntity.getDateCreation());
+            home.list.add(prl.getPanelMain());
+        });
+
+
+        //end
+        frame.setContentPane(home.panelMain);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
 
