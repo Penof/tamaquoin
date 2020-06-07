@@ -2,6 +2,8 @@ import entities.AnnonceEntity;
 import mockDBB.DDB;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ComponentAdapter;
 import java.text.ParseException;
 import java.util.List;
 
@@ -13,6 +15,9 @@ public class home {
 
     private JPanel list;
     private JButton addAdBtn;
+    private JPanel header;
+    private JPanel body;
+    private JLabel tamacoin;
 
     private searchFields searchFields;
 
@@ -35,15 +40,30 @@ public class home {
 
         JFrame frame = new JFrame("app");
         home home = new home(null);
-
         DDB mockDDB = new DDB();
         List<AnnonceEntity> annonces = mockDDB.getAnnonces(null,null,null,null,null);
-        home.list=new JPanel();
 
+        home.panelMain = new JPanel();
+        home.panelMain.setBackground(Color.white);
+
+        header header = new header();
+        header.getHeader().setPreferredSize(new Dimension(1800,300));
+        home.panelMain.add(header.getHeader());
+
+        home.body = new JPanel();
+
+
+
+
+        home.list= new JPanel();
         annonces.forEach(annonceEntity -> {
             ProductList prl = new ProductList(annonceEntity.getNom(),annonceEntity.getPrix(),annonceEntity.getDateCreation());
             home.list.add(prl.getPanelMain());
         });
+
+        home.body.add(home.list);
+        home.panelMain.add(home.body);
+
 
 
         //end
