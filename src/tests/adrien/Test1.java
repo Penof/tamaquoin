@@ -6,10 +6,7 @@ import dao.jpa.JpaAnnonceDao;
 import dao.jpa.JpaCoordonneeDao;
 import dao.jpa.JpaCritereDao;
 import dao.jpa.JpaSousCategorieDao;
-import entities.AnnonceEntity;
-import entities.CoordonneeEntity;
-import entities.CritereEntity;
-import entities.SousCategorieEntity;
+import entities.*;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -25,14 +22,10 @@ public class Test1 {
         AnnonceDao annonceManager = new JpaAnnonceDao();
         CritereDao critereManager  = new JpaCritereDao();
 
-        SousCategorieEntity sc = new SousCategorieEntity("moto");
-        CritereEntity c = new CritereEntity("test", "test","test", "test");
-
-        sc.addCritere(c);
-
-        sousCategorieManager.create(sc);
-
-
+        List<CritereEntity> criteres = (List<CritereEntity>) ((JpaCritereDao) critereManager).getByCategoryId(6);
+        System.out.println(criteres);
+        List<ValeurPossibleEntity> valeursPossibles = criteres.get(0).getValeursPossibles();
+        System.out.println(valeursPossibles);
 
         //List<AnnonceEntity> annonces = (List<AnnonceEntity>) ((JpaAnnonceDao) annonceManager).getAnnoncesByCriteres(null,null, null, 60.0, null);
         //System.out.println(annonces);

@@ -43,7 +43,7 @@ public class createStep2 extends utils{
     public void init(){
         System.out.println(this.ad.toString());
         CritereDao manager = new JpaCritereDao();
-        List<CritereEntity> criteres = ((JpaCritereDao) manager).getByCategoryId();
+        List<CritereEntity> criteres = (List<CritereEntity>) ((JpaCritereDao) manager).getByCategoryId(1);
     }
 
     public void actionsListeners() {

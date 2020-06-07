@@ -13,11 +13,10 @@ import java.util.List;
 
 public class JpaCritereDao extends JpaDao<CritereEntity> implements CritereDao {
 
-    public List<CritereEntity> getByCategoryId(int id_category){
-        Query query = session.createSQLQuery("SELECT * FROM critere WHERE critere.id_sous_categorie = :id_category").addEntity(CritereEntity.class)
+    public Collection<CritereEntity> getByCategoryId(int id_category){
+        Query query = session.createQuery("SELECT c FROM CritereEntity c JOIN c.sousCategories sc WHERE sc.idSousCategorie = :id_category")
                 .setParameter("id_category", id_category);
-        final List<CritereEntity> results = ((NativeQuery) query).list();
-        return results;
+        return (Collection<CritereEntity>) query.getResultList();
     }
 
     @Override

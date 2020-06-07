@@ -23,11 +23,11 @@ public class CritereEntity {
 
 
     @OneToMany(cascade=CascadeType.ALL, mappedBy="critere")
-    public List<ValeurPossibleEntity> getAnnoncesValeursPossibles() {
+    public List<ValeurPossibleEntity> getValeursPossibles() {
         return valeursPossibles;
     }
 
-    public void setAnnoncesValeursPossibles(List<ValeurPossibleEntity> valeursPossibles) {
+    public void setValeursPossibles(List<ValeurPossibleEntity> valeursPossibles) {
         this.valeursPossibles = valeursPossibles;
     }
 
