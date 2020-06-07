@@ -1,11 +1,26 @@
 package create;
 
+import dao.AnnonceDao;
+import dao.CategorieDao;
+import dao.CoordonneeDao;
+import dao.SousCategorieDao;
+import dao.jpa.JpaAnnonceDao;
+import dao.jpa.JpaCoordonneeDao;
+import dao.jpa.JpaSousCategorieDao;
+import entities.AnnonceEntity;
+import entities.CoordonneeEntity;
+import entities.SousCategorieEntity;
+
 import java.awt.Font;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class createStep3 extends utils{
@@ -47,28 +62,23 @@ public class createStep3 extends utils{
     }
 
     public void init(){
-        System.out.println(this.ad.toString());
-
-        this.ad_title.setText(ad.getTitle());
-        this.ad_description.setText(ad.getDescription());
-        this.ad_price.setText(ad.getPrice());
+        if(ad.getTitle() != null) this.ad_title.setText(ad.getTitle());
+        if(ad.getDescription() != null) this.ad_description.setText(ad.getDescription());
+        if(ad.getPrice() != null) this.ad_price.setText(ad.getPrice().toString());
         //this.cities_list.setSelectedItem();
 
-        //MOCK TO BE CHANGED ----- START
-        Map<Integer, String> obj2 = new HashMap<>();
-        obj2.put(-1, "Choisir une ville");
-        obj2.put(0, "Toute la france");
-        obj2.put(1, "Paris");
-        obj2.put(2, "Lille");
-        obj2.put(3, "Lens");
-        obj2.put(4, "Hénin-Beaumont");
-        obj2.put(5, "Dourges");
-        //MOCK TO BE CHANGED ----- END
-        //Map<Integer, String> obj = getCitiesList();
+        CoordonneeDao manager = new JpaCoordonneeDao();
+        List<CoordonneeEntity> list = new ArrayList<CoordonneeEntity>();
 
-        for (Map.Entry<Integer, String> elt : obj2.entrySet()) {
-            this.cities_list.addItem(elt.getValue());
-            this.cities.put(elt.getKey(), elt.getValue());
+        list = (List<CoordonneeEntity>) manager.findAll();
+
+
+        this.cities_list.addItem("Choisir une ville");
+        this.cities.put(-1, "Choisir une ville");
+
+        for (CoordonneeEntity elt : list) {
+            this.cities_list.addItem(elt.getVille());
+            this.cities.put(elt.getIdCoordonnee(), elt.getVille());
         }
 
     }
@@ -79,17 +89,48 @@ public class createStep3 extends utils{
 
         this.ad.setTitle(ad_title.getText());
         this.ad.setDescription(ad_description.getText());
-        this.ad.setPrice(ad_price.getText());
+        this.ad.setPrice(Double.parseDouble(ad_price.getText()));
         this.ad.setCityId(cityId);
         return true;
     }
 
     public void actionsListeners() {
+        //ad_price ----- START
+        ad_price.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!((c >= '0') && (c <= '9') ||
+                        (c == KeyEvent.VK_BACK_SPACE) ||
+                        (c == KeyEvent.VK_DELETE))) {
+                    e.consume();
+                }
+            }
+        });
+        //ad_price ----- END
+
         //nextStepBtn ----- START
         saveAdBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(saveData()) goToStep(frame, 4, ad);
+                if(!saveData()) return;
+
+                AnnonceDao manager = new JpaAnnonceDao();
+                AnnonceEntity annonce = new AnnonceEntity(ad.getTitle(), new Timestamp(System.currentTimeMillis()), ad.getDescription(), ad.getPrice(), 0);
+
+                CoordonneeDao coordonnesManager = new JpaCoordonneeDao();
+                CoordonneeEntity coordonnee = coordonnesManager.find(CoordonneeEntity.class, ad.getCityId());
+
+                SousCategorieDao ssCategoryManager = new JpaSousCategorieDao();
+                SousCategorieEntity sousCategory = ssCategoryManager.find(SousCategorieEntity.class, ad.getCategoryId());
+
+                coordonnee.addAnnonce(annonce);
+                coordonnesManager.update(coordonnee);
+
+                sousCategory.addAnnonce(annonce);
+                ssCategoryManager.update(sousCategory);
+
+                goToStep(frame, 4, ad);
+
             }
         });
         //nextStepBtn ----- END

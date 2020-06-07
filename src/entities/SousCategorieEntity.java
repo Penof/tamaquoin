@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "sous_categorie", schema = "tamaquoin", catalog = "")
+@Table(name = "sous_categorie", schema = "2i_poo_tamacoin", catalog = "")
 public class SousCategorieEntity {
     private Integer idSousCategorie;
     private String label;

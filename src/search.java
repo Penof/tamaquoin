@@ -1,9 +1,17 @@
 import create.createStep1;
+import dao.CoordonneeDao;
+import dao.SousCategorieDao;
+import dao.jpa.JpaCoordonneeDao;
+import dao.jpa.JpaSousCategorieDao;
+import entities.CoordonneeEntity;
+import entities.SousCategorieEntity;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -53,38 +61,26 @@ public class search {
     }
 
     private void initCategoriesList() {
-        //MOCK TO BE CHANGED ----- START
-        Map<Integer, String> obj = new HashMap<>();
-        obj.put(-1, "Toutes catégories");
-        obj.put(1, "Voiture");
-        obj.put(2, "Moto");
-        obj.put(13, "Vélo");
-        obj.put(4, "Téléphonie");
-        obj.put(5, "Electronique");
-        //MOCK TO BE CHANGED ----- END
-        //Map<Integer, String> obj = getCategoriesList();
+        SousCategorieDao manager = new JpaSousCategorieDao();
+        List<SousCategorieEntity> list = new ArrayList<SousCategorieEntity>();
 
-        for (Map.Entry<Integer, String> elt : obj.entrySet()) {
-            this.search_categories.addItem(elt.getValue());
-            this.categories.put(elt.getKey(), elt.getValue());
+        list = (List<SousCategorieEntity>) manager.findAll();
+
+        for (SousCategorieEntity elt : list) {
+            this.search_categories.addItem(elt.getLabel());
+            this.categories.put(elt.getIdSousCategorie(), elt.getLabel());
         }
     }
 
     private void initCitiesList() {
-        //MOCK TO BE CHANGED ----- START
-        Map<Integer, String> obj = new HashMap<>();
-        obj.put(-1, "Toute la France");
-        obj.put(1, "Paris");
-        obj.put(2, "Lille");
-        obj.put(3, "Lens");
-        obj.put(4, "Hénin-Beaumont");
-        obj.put(5, "Dourges");
-        //MOCK TO BE CHANGED ----- END
-        //Map<Integer, String> obj = getCitiesList();
+        CoordonneeDao manager = new JpaCoordonneeDao();
+        List<CoordonneeEntity> list = new ArrayList<CoordonneeEntity>();
 
-        for (Map.Entry<Integer, String> elt : obj.entrySet()) {
-            this.search_cities.addItem(elt.getValue());
-            this.cities.put(elt.getKey(), elt.getValue());
+        list = (List<CoordonneeEntity>) manager.findAll();
+
+        for (CoordonneeEntity elt : list) {
+            this.search_cities.addItem(elt.getVille());
+            this.cities.put(elt.getIdCoordonnee(), elt.getVille());
         }
     }
 

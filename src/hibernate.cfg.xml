@@ -4,11 +4,11 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <property name="connection.url">jdbc:mysql://54.36.99.55/tamacoin?serverTimezone=UTC</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/2i_poo_tamacoin?serverTimezone=UTC</property>
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
-        <property name="connection.username">tamacoin</property>
-        <property name="connection.password">tamacoin</property>
+        <property name="connection.username">admin</property>
+        <property name="connection.password">admin</property>
         <mapping class="entities.AnnonceEntity"/>
         <mapping class="entities.AssocAnnonceCritereEntity"/>
         <mapping class="entities.AssocSouscategorieCritereEntity"/>
