@@ -7,6 +7,7 @@ import dao.jpa.JpaCoordonneeDao;
 import dao.jpa.JpaSousCategorieDao;
 import entities.CoordonneeEntity;
 import entities.SousCategorieEntity;
+import entities.UtilisateurEntity;
 
 import javax.swing.*;
 import java.awt.*;
@@ -37,13 +38,13 @@ public class Search {
 
     private JFrame frame;
 
-    private userFields user;
+    private UtilisateurEntity user;
 
     public Search() {
         init();
     }
 
-    public Search(userFields user) {
+    public Search(UtilisateurEntity user) {
         this.user = user;
         init();
     }
@@ -225,7 +226,8 @@ public class Search {
         addAdBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                goToCreateAdForm();
+                if(user == null ) goToLoginForm();
+                else goToCreateAdForm();
             }
         });
         //addAdBtn ----- END
@@ -276,8 +278,12 @@ public class Search {
 
         categoryId = categoryId == -1 ? null : categoryId;
         cityId = cityId == -1 ? null : cityId;
+        String keyword = this.search_keywords.getText().equals("Que recherchez-vous ?") ? null : this.search_keywords.getText();
+        Double price_min = this.search_priceMin.getText().equals("min") ? Double.parseDouble("0") : Double.parseDouble(this.search_priceMin.getText());
+        Double price_max = this.search_priceMax.getText().equals("max") ? Double.parseDouble("100000000") : Double.parseDouble(this.search_priceMax.getText());
 
-        searchFields searchFields = new searchFields(categoryId,cityId,this.search_keywords.getText(),this.search_priceMin.getText(),this.search_priceMax.getText());
+        searchFields searchFields = new searchFields(categoryId, cityId, keyword, price_min, price_max);
+
         this.getFrame().dispose();
 
         home home = new home(searchFields, user);
@@ -294,7 +300,7 @@ public class Search {
     public void goToCreateAdForm(){
         this.getFrame().dispose();
 
-        createStep1 create = new createStep1(null, 1);
+        createStep1 create = new createStep1(null, user);
         create.getFrame().setContentPane(create.getPanelMain());
         create.getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         create.getFrame().pack();
@@ -303,6 +309,20 @@ public class Search {
         create.getFrame().setExtendedState(JFrame.MAXIMIZED_BOTH);
         create.getFrame().setLocationRelativeTo(null);
         create.getFrame().setVisible(true);
+    }
+
+    public void goToLoginForm(){
+        this.getFrame().dispose();
+
+        signin login = new signin(true);
+        login.getFrame().setContentPane(login.getPanelMain());
+        login.getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        login.getFrame().pack();
+
+        login.getFrame().setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        login.getFrame().setExtendedState(JFrame.MAXIMIZED_BOTH);
+        login.getFrame().setLocationRelativeTo(null);
+        login.getFrame().setVisible(true);
     }
 
     public static void main(String args[]) throws ParseException {

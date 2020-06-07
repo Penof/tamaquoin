@@ -13,13 +13,13 @@ import java.util.List;
 public class JpaAnnonceDao extends JpaDao<AnnonceEntity> implements AnnonceDao {
 
 
-    public Collection<AnnonceEntity> getAnnoncesByCriteres(String sousCategorie, String ville, String keyword, Double priceMin, Double priceMax){
+    public Collection<AnnonceEntity> getAnnoncesByCriteres(Integer sousCategorie, Integer ville, String keyword, Double priceMin, Double priceMax){
         Query query = session.createSQLQuery("SELECT * " +
                 "FROM annonce, sous_categorie, coordonnee " +
                 "WHERE annonce.id_sous_categorie = sous_categorie.id_sous_categorie " +
                 "AND annonce.id_coordonnee = coordonnee.id_coordonnee " +
-                "AND sous_categorie.label = IFNULL(:sousCategorie,sous_categorie.label) " +
-                "AND coordonnee.ville = IFNULL(:ville, coordonnee.ville) " +
+                "AND sous_categorie.id_sous_categorie = IFNULL(:sousCategorie,sous_categorie.id_sous_categorie) " +
+                "AND coordonnee.id_coordonnee = IFNULL(:ville, coordonnee.id_coordonnee) " +
                 "AND annonce.nom LIKE IFNULL(CONCAT('%', CONCAT(:keyword, '%')), annonce.nom) " +
                 "AND annonce.prix > IFNULL(:priceMin, 0) " +
                 "AND annonce.prix < IFNULL(:priceMax, 999999999999)").addEntity(AnnonceEntity.class)
@@ -32,7 +32,6 @@ public class JpaAnnonceDao extends JpaDao<AnnonceEntity> implements AnnonceDao {
         final List<AnnonceEntity> results = ((NativeQuery) query).list();
         return results;
     }
-
 
     @Override
     public boolean create(AnnonceEntity obj) {

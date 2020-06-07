@@ -4,6 +4,7 @@ import common.*;
 import dao.AnnonceDao;
 import dao.jpa.JpaAnnonceDao;
 import entities.AnnonceEntity;
+import entities.UtilisateurEntity;
 import mockDBB.DDB;
 
 import javax.swing.*;
@@ -23,9 +24,9 @@ public class AdDetails {
     private searchFields searchFields;
     private JFrame frame;
 
-    private userFields user;
+    private UtilisateurEntity user;
 
-    public AdDetails(int idAnnonce, searchFields searchFields, userFields user) {
+    public AdDetails(int idAnnonce, searchFields searchFields, UtilisateurEntity user) {
 
         this.user = user;
 

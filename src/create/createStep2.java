@@ -1,7 +1,9 @@
 package create;
 
+import common.Search;
 import dao.CritereDao;
 import dao.jpa.JpaCritereDao;
+import entities.UtilisateurEntity;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -20,7 +22,11 @@ public class createStep2 extends utils{
 
     private newad ad;
 
-    public createStep2(newad ad) {
+    private UtilisateurEntity user;
+
+    public createStep2(newad ad, UtilisateurEntity user) {
+        this.user = user;
+
         this.ad = ad;
         this.frame =  new JFrame("app");
         init();
@@ -47,7 +53,7 @@ public class createStep2 extends utils{
         nextStepBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                goToStep(frame, 3, ad);
+                goToStep(frame, 3, ad, user);
             }
         });
         //nextStepBtn ----- END
@@ -56,9 +62,28 @@ public class createStep2 extends utils{
         previousStepBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                goToStep(frame, 1, ad);
+                goToStep(frame, 1, ad, user);
             }
         });
         //previousStepBtn ----- END
+
+        //cancelBtn ----- START
+        cancelBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+
+                Search search = new Search(user);
+                search.getFrame().setContentPane(search.getPanelMain());
+                search.getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                search.getFrame().pack();
+
+                search.getFrame().setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                search.getFrame().setExtendedState(JFrame.MAXIMIZED_BOTH);
+                search.getFrame().setLocationRelativeTo(null);
+                search.getFrame().setVisible(true);
+            }
+        });
+        //cancelBtn ----- END
     }
 }

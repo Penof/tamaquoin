@@ -4,6 +4,7 @@ import common.Search;
 import dao.SousCategorieDao;
 import dao.jpa.JpaSousCategorieDao;
 import entities.SousCategorieEntity;
+import entities.UtilisateurEntity;
 
 import java.awt.Font;
 import javax.swing.*;
@@ -29,9 +30,12 @@ public class createStep1 extends utils{
 
     private newad ad;
 
-    public createStep1(newad ad, Integer userId) {
+    private UtilisateurEntity user;
+
+    public createStep1(newad ad, UtilisateurEntity user) {
         this.ad = ad == null ? new newad() : ad;
-        this.ad.setUserId(userId);
+        this.user = user;
+        if(this.user != null) this.ad.setUserId(this.user.getIdUtilisateur());
         this.init();
         this.actionsListeners();
     }
@@ -82,7 +86,7 @@ public class createStep1 extends utils{
         nextStepBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(saveData()) goToStep(frame, 2, ad);
+                if(saveData()) goToStep(frame, 2, ad, user);
             }
         });
         //nextStepBtn ----- END
@@ -93,7 +97,7 @@ public class createStep1 extends utils{
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
 
-                Search search = new Search();
+                Search search = new Search(user);
                 search.getFrame().setContentPane(search.getPanelMain());
                 search.getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 search.getFrame().pack();

@@ -1,7 +1,4 @@
 package entities;
-
-import jdk.jshell.execution.Util;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;

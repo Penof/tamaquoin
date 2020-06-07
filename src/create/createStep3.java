@@ -5,12 +5,15 @@ import common.Search;
 import dao.AnnonceDao;
 import dao.CoordonneeDao;
 import dao.SousCategorieDao;
+import dao.UtilisateurDao;
 import dao.jpa.JpaAnnonceDao;
 import dao.jpa.JpaCoordonneeDao;
 import dao.jpa.JpaSousCategorieDao;
+import dao.jpa.JpaUtilisateurDao;
 import entities.AnnonceEntity;
 import entities.CoordonneeEntity;
 import entities.SousCategorieEntity;
+import entities.UtilisateurEntity;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -44,7 +47,11 @@ public class createStep3 extends utils{
 
     private newad ad;
 
-    public createStep3(newad ad) {
+    private UtilisateurEntity user;
+
+    public createStep3(newad ad, UtilisateurEntity user) {
+        this.user = user;
+
         this.ad = ad;
         this.frame =  new JFrame("app");
 
@@ -132,6 +139,10 @@ public class createStep3 extends utils{
                 sousCategory.addAnnonce(annonce);
                 ssCategoryManager.update(sousCategory);
 
+                UtilisateurDao userManager = new JpaUtilisateurDao();
+                user.addAnnonce(annonce);
+                userManager.update(user);
+
                 frame.dispose();
                 AdDetails adDetails = new AdDetails(annonce.getIdAnnonce(), null, null);
                 adDetails.getFrame().setContentPane(adDetails.getPanelMain());
@@ -151,7 +162,7 @@ public class createStep3 extends utils{
             @Override
             public void actionPerformed(ActionEvent e) {
                 saveData();
-                goToStep(frame, 2, ad);
+                goToStep(frame, 2, ad, user);
             }
         });
         //previousStepBtn ----- END
@@ -162,7 +173,7 @@ public class createStep3 extends utils{
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
 
-                Search search = new Search();
+                Search search = new Search(user);
                 search.getFrame().setContentPane(search.getPanelMain());
                 search.getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 search.getFrame().pack();

@@ -1,23 +1,25 @@
 package create;
 
+import entities.UtilisateurEntity;
+
 import javax.swing.*;
 import java.util.Map;
 
 public class utils {
 
-    void goToStep(JFrame fromFrame, int stepNumber, newad ad) {
+    void goToStep(JFrame fromFrame, int stepNumber, newad ad, UtilisateurEntity user) {
         fromFrame.dispose();
         switch (stepNumber) {
             case 1:
-                createStep1 step1 = new createStep1(ad);
+                createStep1 step1 = new createStep1(ad, user);
                 openNewWindow(step1.getFrame(), step1.getPanelMain());
                 break;
             case 2:
-                createStep2 step2 = new createStep2(ad);
+                createStep2 step2 = new createStep2(ad, user);
                 openNewWindow(step2.getFrame(), step2.getPanelMain());
                 break;
             case 3:
-                createStep3 step3 = new createStep3(ad);
+                createStep3 step3 = new createStep3(ad, user);
                 openNewWindow(step3.getFrame(), step3.getPanelMain());
                 break;
             default:

@@ -1,5 +1,6 @@
 package common;
 
+import create.createStep1;
 import dao.UtilisateurDao;
 import dao.jpa.JpaUtilisateurDao;
 import entities.UtilisateurEntity;
@@ -18,13 +19,20 @@ public class signin {
 
     private JFrame frame;
 
-    private Integer userId;
+    private UtilisateurEntity user;
+
+    private boolean redirectToCreateAd = false;
+
+    public signin(boolean redirectToCreateAd) {
+        this.redirectToCreateAd = redirectToCreateAd;
+        this.frame =  new JFrame("app");
+        actionsListeners();
+    }
 
     public signin() {
         this.frame =  new JFrame("app");
         actionsListeners();
     }
-
 
     public JPanel getPanelMain() {
         return panelMain;
@@ -41,14 +49,13 @@ public class signin {
         if(this.email.getText().length() == 0)  flag = false;
         if(this.password.getText().length() == 0)  flag = false;
 
+        if(!flag) return flag;
+
         //Requete bdd
         UtilisateurDao manager = new JpaUtilisateurDao();
-        UtilisateurEntity user = ((JpaUtilisateurDao) manager).signin(this.email.getText(), this.password.getText());
+        this.user = ((JpaUtilisateurDao) manager).signin(this.email.getText(), this.password.getText());
 
-        System.out.println(user.getNom());
-
-        //this.userId = 2;
-
+       if(this.user.getIdUtilisateur() == null) flag = false;
         return flag;
     }
 
@@ -81,25 +88,29 @@ public class signin {
             public void actionPerformed(ActionEvent e) {
 
                 if(!signinUser()) return;
-
-                //Test
-                userFields user = new userFields();
-                user.setFirstname("Ayman");
-                user.setLastname("Oussama");
-                user.setUsername("ouayman");
-                user.setEmail("ou.ayman@gmail.com");
-
                 frame.dispose();
 
-                Search search = new Search(user);
-                search.getFrame().setContentPane(search.getPanelMain());
-                search.getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                search.getFrame().pack();
+                if(redirectToCreateAd) {
+                    createStep1 create = new createStep1(null, user);
+                    create.getFrame().setContentPane(create.getPanelMain());
+                    create.getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    create.getFrame().pack();
 
-                search.getFrame().setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                search.getFrame().setExtendedState(JFrame.MAXIMIZED_BOTH);
-                search.getFrame().setLocationRelativeTo(null);
-                search.getFrame().setVisible(true);
+                    create.getFrame().setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    create.getFrame().setExtendedState(JFrame.MAXIMIZED_BOTH);
+                    create.getFrame().setLocationRelativeTo(null);
+                    create.getFrame().setVisible(true);
+                }else {
+                    Search search = new Search(user);
+                    search.getFrame().setContentPane(search.getPanelMain());
+                    search.getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    search.getFrame().pack();
+
+                    search.getFrame().setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    search.getFrame().setExtendedState(JFrame.MAXIMIZED_BOTH);
+                    search.getFrame().setLocationRelativeTo(null);
+                    search.getFrame().setVisible(true);
+                }
             }
         });
         //loginBtn ----- END

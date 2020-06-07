@@ -2,33 +2,40 @@ package common;
 
 import ads.*;
 import create.createStep1;
+import dao.AnnonceDao;
+import dao.CritereDao;
+import dao.jpa.JpaAnnonceDao;
+import dao.jpa.JpaCritereDao;
+import dao.jpa.JpaUtilisateurDao;
 import entities.AnnonceEntity;
+import entities.CritereEntity;
+import entities.UtilisateurEntity;
+import entities.ValeurPossibleEntity;
 import mockDBB.CritereDTO;
 import mockDBB.DDB;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class home {
     private JPanel panelMain;
     private JButton searchAdBtn;
+
+    private JPanel header;
+    private JLabel tamacoin;
+    private JPanel body;
     private JButton filtrerButton;
 
     private JPanel list;
     private JButton addAdBtn;
-    private JPanel header;
-    private JPanel body;
-    private JLabel tamacoin;
     private JPanel filters;
     private JLabel number_ads;
     private JButton myAccountBtn;
 
     private searchFields searchFields;
-    private userFields user;
+    private UtilisateurEntity user;
 
     private JFrame frame;
 
@@ -51,7 +58,7 @@ public class home {
         return result;
     }
 
-    public home(searchFields searchFields, userFields user) {
+    public home(searchFields searchFields, UtilisateurEntity user) {
         this.user = user;
         if(this.user != null) {
             this.myAccountBtn.setText("Déconnexion");
@@ -59,9 +66,17 @@ public class home {
 
         this.frame =  new JFrame("app");
         this.searchFields = searchFields;
+
+        AnnonceDao adManager = new JpaAnnonceDao();
+        System.out.println(searchFields.toString());
+        List<AnnonceEntity> annonces = (List<AnnonceEntity>)((JpaAnnonceDao) adManager).getAnnoncesByCriteres(searchFields.getCategoryId(), searchFields.getCityId(), searchFields.getKeyword(), searchFields.getPriceMin(), searchFields.getPriceMax());
+
+
         DDB mockDDB = new DDB();
-        List<AnnonceEntity> annonces = mockDDB.getAnnonces(null,null,null,null,null);
         List<CritereDTO> criteres = mockDDB.getFilterByCategory();
+        //CritereDao critereManager  = new JpaCritereDao();
+        //List<CritereEntity> criteres = (List<CritereEntity>) ((JpaCritereDao) critereManager).getByCategoryId(searchFields.getCategoryId());
+        //List<ValeurPossibleEntity> valeursPossibles = criteres.get(0).getValeursPossibles();
 
         filters.setLayout(new BoxLayout(filters, BoxLayout.Y_AXIS));
         criteres.forEach(critereDTO -> {
@@ -134,7 +149,7 @@ public class home {
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
 
-                createStep1 create = new createStep1(null, 1);
+                createStep1 create = new createStep1(null, user);
                 create.getFrame().setContentPane(create.getPanelMain());
                 create.getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 create.getFrame().pack();

@@ -19,7 +19,7 @@ public class signup {
 
     private JFrame frame;
 
-    private userFields user;
+    private UtilisateurEntity user;
 
     public signup() {
         this.frame =  new JFrame("app");
@@ -36,18 +36,18 @@ public class signup {
 
     boolean createUser(){
         boolean flag = true;
-        this.user = new userFields();
 
-        if(this.firstname.getText().length() > 0) this.user.setFirstname(this.firstname.getText()); else flag = false;
-        if(this.lastname.getText().length() > 0) this.user.setFirstname(this.lastname.getText()); else flag = false;
-        if(this.email.getText().length() > 0) this.user.setFirstname(this.email.getText()); else flag = false;
-        if(this.password.getText().length() > 0) this.user.setFirstname(this.password.getText()); else flag = false;
+        if(this.firstname.getText().length() == 0) flag = false;
+        if(this.lastname.getText().length() == 0) flag = false;
+        if(this.email.getText().length() == 0) flag = false;
+        if(this.password.getText().length() == 0) flag = false;
+
+        if(flag == false) return flag;
 
         UtilisateurDao manager = new JpaUtilisateurDao();
-        UtilisateurEntity user = new UtilisateurEntity(this.firstname.getText()+" "+this.lastname.getText(), this.email.getText(), this.password.getText());
+        this.user = new UtilisateurEntity(this.firstname.getText()+" "+this.lastname.getText(), this.email.getText(), this.password.getText());
         manager.create(user);
-
-        System.out.println(user.getIdUtilisateur());
+        if(this.user.getIdUtilisateur() == null) flag = false;
 
         return flag;
     }
