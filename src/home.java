@@ -7,25 +7,34 @@ import java.util.List;
 
 public class home {
     private JPanel panelMain;
-    private JButton proposerUneAnnonceButton;
+    private JButton searchAdBtn;
     private JButton filtrerButton;
+
+
     private JPanel list;
+    private JButton addAdBtn;
 
     private searchFields searchFields;
 
-    public JPanel home(searchFields searchFields) {
+    private JFrame frame;
+
+    public home(searchFields searchFields) {
+        this.frame =  new JFrame("app");
         this.searchFields = searchFields;
-        return this.panelMain;
     }
 
     public JPanel getPanelMain() {
         return panelMain;
     }
 
+    public JFrame getFrame() {
+        return frame;
+    }
+
     public static void main(String args[]) throws ParseException {
 
         JFrame frame = new JFrame("app");
-        home home = new home();
+        home home = new home(null);
 
         DDB mockDDB = new DDB();
         List<AnnonceEntity> annonces = mockDDB.getAnnonces(null,null,null,null,null);

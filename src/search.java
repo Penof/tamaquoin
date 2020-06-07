@@ -25,7 +25,11 @@ public class search {
     private JTextField search_priceMax;
     private JButton search_confirm;
 
+    private JFrame frame;
+
     public search() {
+        this.frame =  new JFrame("app");
+
         this.categories = new HashMap<>();
         this.initCategoriesList();
 
@@ -35,6 +39,10 @@ public class search {
         this.actionsListeners();
 
         //updateAdsList();
+    }
+
+    public JFrame getFrame() {
+        return frame;
     }
 
     public String getPageTitle() {
@@ -112,7 +120,7 @@ public class search {
         //search_keywords ----- END
 
         //search_priceMin ----- START
-        placeholders.put("search_priceMin", "Prix minimum");
+        placeholders.put("search_priceMin", "min");
         if (search_priceMin.getText().isEmpty()) {
             search_priceMin.setForeground(Color.GRAY);
             search_priceMin.setText(placeholders.get("search_priceMin"));
@@ -149,7 +157,7 @@ public class search {
         //search_priceMin ----- END
 
         //search_priceMax ----- START
-        placeholders.put("search_priceMax", "Prix maximum");
+        placeholders.put("search_priceMax", "max");
         if (search_priceMax.getText().isEmpty()) {
             search_priceMax.setForeground(Color.GRAY);
             search_priceMax.setText(placeholders.get("search_priceMax"));
@@ -189,30 +197,40 @@ public class search {
         search_confirm.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //updateAdsList();
+                goToProductsList();
             }
         });
         //search_confirm ----- END
     }
 
     public void goToProductsList(){
-        //searchFields searchFields = new searchFields(this.search_categories.getText());
+        searchFields searchFields = new searchFields(this.search_categories.getSelectedItem().toString(),this.search_cities.getSelectedItem().toString(),this.search_keywords.getText(),this.search_priceMin.getText(),this.search_priceMax.getText());
+        this.getFrame().dispose();
+
+        home home = new home(searchFields);
+        home.getFrame().setContentPane(home.getPanelMain());
+        home.getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        home.getFrame().pack();
+
+        home.getFrame().setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        home.getFrame().setExtendedState(JFrame.MAXIMIZED_BOTH);
+        home.getFrame().setLocationRelativeTo(null);
+        home.getFrame().setVisible(true);
     }
 
     public static void main(String args[]) throws ParseException {
 
-        JFrame frame = new JFrame("app");
         search search = new search();
 
         //end
-        frame.setContentPane(search.panelMain);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
+        search.getFrame().setContentPane(search.panelMain);
+        search.getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        search.getFrame().pack();
 
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
+        search.getFrame().setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        search.getFrame().setExtendedState(JFrame.MAXIMIZED_BOTH);
+        search.getFrame().setLocationRelativeTo(null);
+        search.getFrame().setVisible(true);
 
     }
 }
