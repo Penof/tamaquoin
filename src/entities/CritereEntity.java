@@ -14,9 +14,21 @@ public class CritereEntity {
     private String unite;
     private String typeColonne;
     private List<SousCategorieEntity> sousCategories;
+    private List<ValeurPossibleEntity> valeursPossibles;
 
     public void setIdCritere(int idCritere) {
         this.idCritere = idCritere;
+    }
+
+
+
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="critere")
+    public List<ValeurPossibleEntity> getAnnoncesValeursPossibles() {
+        return valeursPossibles;
+    }
+
+    public void setAnnoncesValeursPossibles(List<ValeurPossibleEntity> valeursPossibles) {
+        this.valeursPossibles = valeursPossibles;
     }
 
 

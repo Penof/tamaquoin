@@ -11,12 +11,26 @@ public class ValeurPossibleEntity {
     private String valeurString;
     private Byte valeurBooleen;
     private Double valeurDouble;
+    private CritereEntity critere;
 
     public void setIdValeur(int idValeur) {
         this.idValeur = idValeur;
     }
 
+
+    @ManyToOne
+    @JoinColumn(name="id_critere", referencedColumnName = "id_critere")
+    public CritereEntity getCritere() {
+        return critere;
+    }
+
+    public void setCritere(CritereEntity coordonnee) {
+        this.critere = critere;
+    }
+
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_valeur")
     public Integer getIdValeur() {
         return idValeur;
@@ -76,6 +90,9 @@ public class ValeurPossibleEntity {
                 Objects.equals(valeurString, that.valeurString) &&
                 Objects.equals(valeurBooleen, that.valeurBooleen) &&
                 Objects.equals(valeurDouble, that.valeurDouble);
+    }
+
+    public ValeurPossibleEntity() {
     }
 
     @Override
