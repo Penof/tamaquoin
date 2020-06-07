@@ -12,7 +12,6 @@ public class home {
     private JButton searchAdBtn;
     private JButton filtrerButton;
 
-
     private JPanel list;
     private JButton addAdBtn;
     private JPanel header;

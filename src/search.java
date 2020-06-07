@@ -1,12 +1,10 @@
-import entities.AnnonceEntity;
-import mockDBB.DDB;
+import create.createStep1;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.ParseException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class search {
@@ -15,15 +13,16 @@ public class search {
     private JPanel panelMain;
 
     private JComboBox search_categories;
-    private Map<String, Integer> categories;
+    private Map<Integer, String> categories;
 
     private JComboBox search_cities;
-    private Map<String, Integer> cities;
+    private Map<Integer, String> cities;
 
     private JTextField search_keywords;
     private JTextField search_priceMin;
     private JTextField search_priceMax;
     private JButton search_confirm;
+    private JButton addAdBtn;
 
     private JFrame frame;
 
@@ -67,7 +66,7 @@ public class search {
 
         for (Map.Entry<Integer, String> elt : obj.entrySet()) {
             this.search_categories.addItem(elt.getValue());
-            this.categories.put(elt.getValue(), elt.getKey());
+            this.categories.put(elt.getKey(), elt.getValue());
         }
     }
 
@@ -85,7 +84,7 @@ public class search {
 
         for (Map.Entry<Integer, String> elt : obj.entrySet()) {
             this.search_cities.addItem(elt.getValue());
-            this.cities.put(elt.getValue(), elt.getKey());
+            this.cities.put(elt.getKey(), elt.getValue());
         }
     }
 
@@ -201,10 +200,30 @@ public class search {
             }
         });
         //search_confirm ----- END
+
+        //addAdBtn ----- START
+        addAdBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                goToCreateAdForm();
+            }
+        });
+        //addAdBtn ----- END
+    }
+
+    int getMapKeyByValue(Map<Integer, String> map, String value) {
+        for (Map.Entry<Integer, String> entry : map.entrySet()) {
+            if(entry.getValue() == value) return entry.getKey();
+        }
+        return -1;
     }
 
     public void goToProductsList(){
-        searchFields searchFields = new searchFields(this.search_categories.getSelectedItem().toString(),this.search_cities.getSelectedItem().toString(),this.search_keywords.getText(),this.search_priceMin.getText(),this.search_priceMax.getText());
+
+        Integer categoryId = getMapKeyByValue(categories, this.search_categories.getSelectedItem().toString());
+        Integer cityId = getMapKeyByValue(cities, this.search_cities.getSelectedItem().toString());
+
+        searchFields searchFields = new searchFields(categoryId,cityId,this.search_keywords.getText(),this.search_priceMin.getText(),this.search_priceMax.getText());
         this.getFrame().dispose();
 
         home home = new home(searchFields);
@@ -216,6 +235,20 @@ public class search {
         home.getFrame().setExtendedState(JFrame.MAXIMIZED_BOTH);
         home.getFrame().setLocationRelativeTo(null);
         home.getFrame().setVisible(true);
+    }
+
+    public void goToCreateAdForm(){
+        this.getFrame().dispose();
+
+        createStep1 create = new createStep1(null, 1);
+        create.getFrame().setContentPane(create.getPanelMain());
+        create.getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        create.getFrame().pack();
+
+        create.getFrame().setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        create.getFrame().setExtendedState(JFrame.MAXIMIZED_BOTH);
+        create.getFrame().setLocationRelativeTo(null);
+        create.getFrame().setVisible(true);
     }
 
     public static void main(String args[]) throws ParseException {

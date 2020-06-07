@@ -3,15 +3,15 @@ import java.util.Map;
 
 public class searchFields {
 
-    private String category;
-    private String city;
+    private Integer categoryId;
+    private Integer cityId;
     private String keyword;
     private String priceMin;
     private String priceMax;
 
-    public searchFields(String category, String city, String keyword, String priceMin, String search_priceMax) {
-        this.category = category;
-        this.city = city;
+    public searchFields(Integer categoryId, Integer cityId, String keyword, String priceMin, String search_priceMax) {
+        this.categoryId = categoryId;
+        this.cityId = cityId;
         this.keyword = keyword;
         this.priceMin = priceMin;
         this.priceMax = search_priceMax;
@@ -20,8 +20,8 @@ public class searchFields {
     @Override
     public String toString() {
         return "searchFields{" +
-                "category='" + category + '\'' +
-                ", city='" + city + '\'' +
+                "category='" + categoryId + '\'' +
+                ", city='" + cityId + '\'' +
                 ", keyword='" + keyword + '\'' +
                 ", priceMin='" + priceMin + '\'' +
                 ", priceMax='" + priceMax + '\'' +
