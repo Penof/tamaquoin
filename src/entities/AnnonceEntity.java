@@ -1,5 +1,7 @@
 package entities;
 
+import jdk.jshell.execution.Util;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
@@ -16,6 +18,7 @@ public class AnnonceEntity {
     private String photo;
     private SousCategorieEntity sousCategorie;
     private CoordonneeEntity coordonnee;
+    private UtilisateurEntity utilisateur;
 
     public AnnonceEntity() {
     }
@@ -59,6 +62,16 @@ public class AnnonceEntity {
 
     public void setSousCategorie(SousCategorieEntity sousCategorie) {
         this.sousCategorie = sousCategorie;
+    }
+
+    @ManyToOne
+    @JoinColumn(name="id_utilisateur", referencedColumnName = "id_utilisateur")
+    public UtilisateurEntity getUtilisateur() {
+        return utilisateur;
+    }
+
+    public void setUtilisateur(UtilisateurEntity utilisateur) {
+        this.utilisateur = utilisateur;
     }
 
 

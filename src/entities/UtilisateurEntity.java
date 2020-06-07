@@ -1,6 +1,7 @@
 package entities;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -10,6 +11,7 @@ public class UtilisateurEntity {
     private String nom;
     private String mail;
     private String mdp;
+    private List<AnnonceEntity> annonces;
 
     public UtilisateurEntity(String nom, String mail, String mdp) {
         this.nom = nom;
@@ -19,6 +21,15 @@ public class UtilisateurEntity {
 
     public void setIdUtilisateur(int idUtilisateur) {
         this.idUtilisateur = idUtilisateur;
+    }
+
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="utilisateur")
+    public List<AnnonceEntity> getAnnonces() {
+        return annonces;
+    }
+
+    public void setAnnonces(List<AnnonceEntity> annonces) {
+        this.annonces = annonces;
     }
 
     @Id
@@ -76,5 +87,19 @@ public class UtilisateurEntity {
     @Override
     public int hashCode() {
         return Objects.hash(idUtilisateur, nom, mail, mdp);
+    }
+
+    public boolean addAnnonce(AnnonceEntity a) {
+        if(a != null){
+            this.annonces.add(a);
+            a.setUtilisateur(this);
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    public UtilisateurEntity() {
     }
 }
