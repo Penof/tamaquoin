@@ -1,7 +1,7 @@
 package common;
 
-import ads.AdDetails;
-import ads.AdsList;
+import ads.*;
+import create.createStep1;
 import entities.AnnonceEntity;
 import mockDBB.CritereDTO;
 import mockDBB.DDB;
@@ -9,7 +9,9 @@ import mockDBB.DDB;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class home {
     private JPanel panelMain;
@@ -21,8 +23,12 @@ public class home {
     private JPanel header;
     private JPanel body;
     private JLabel tamacoin;
+    private JPanel filters;
+    private JLabel number_ads;
+    private JButton myAccountBtn;
 
     private searchFields searchFields;
+    private userFields user;
 
     private JFrame frame;
 
@@ -45,33 +51,26 @@ public class home {
         return result;
     }
 
-    public home(searchFields searchFields) {
+    public home(searchFields searchFields, userFields user) {
+        this.user = user;
+        if(this.user != null) {
+            this.myAccountBtn.setText("Déconnexion");
+        }
+
         this.frame =  new JFrame("app");
         this.searchFields = searchFields;
         DDB mockDDB = new DDB();
         List<AnnonceEntity> annonces = mockDDB.getAnnonces(null,null,null,null,null);
         List<CritereDTO> criteres = mockDDB.getFilterByCategory();
 
-        panelMain = new JPanel();
-        panelMain.setBackground(Color.white);
-
-        Header header = new Header();
-        header.getHeader().setPreferredSize(new Dimension(1800,300));
-        panelMain.add(header.getHeader());
-        body = new JPanel();
-
-        JPanel filters = new JPanel();
         filters.setLayout(new BoxLayout(filters, BoxLayout.Y_AXIS));
-        JLabel filTitle = new JLabel("Filtres");
-        filTitle.setFont(new Font(Font.SANS_SERIF, 1,20));
-        filters.add(filTitle);
-
         criteres.forEach(critereDTO -> {
             filters.add(displayFilterByCheckPoint(critereDTO.critereEntity.getLabel(), critereDTO.valeur));
         });
-        body.add(filters);
 
-        list= new JPanel();
+        this.number_ads.setText(annonces.size() + (annonces.size() > 1 ? " résultats" : " résultat"));
+
+        list.setLayout(new BoxLayout(list, BoxLayout.Y_AXIS));
         annonces.forEach(annonceEntity -> {
             AdsList prl = new AdsList(annonceEntity.getNom(),annonceEntity.getPrix(),annonceEntity.getDateCreation());
             prl.getPanelMain().addMouseListener(new MouseListener() {
@@ -100,17 +99,16 @@ public class home {
 
                 }
             });
-            list.add(prl.getPanelMain());
+            this.list.add(prl.getPanelMain());
         });
 
-        body.add(list);
-        panelMain.add(body);
+        this.actionsListeners();
     }
 
     public void goToProductsList(int idAnnonce){
         this.getFrame().dispose();
 
-        AdDetails productDetails = new AdDetails(idAnnonce, searchFields);
+        AdDetails productDetails = new AdDetails(idAnnonce, searchFields, user);
         productDetails.getFrame().setContentPane(productDetails.getPanelMain());
         productDetails.getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         productDetails.getFrame().pack();
@@ -129,45 +127,75 @@ public class home {
         return frame;
     }
 
-    public static void main(String args[]) {
+    public void actionsListeners() {
+        //addAdBtn ----- START
+        addAdBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
 
-        JFrame frame = new JFrame("app");
-        home home = new home(null);
-        DDB mockDDB = new DDB();
-        List<AnnonceEntity> annonces = mockDDB.getAnnonces(null,null,null,null,null);
+                createStep1 create = new createStep1(null, 1);
+                create.getFrame().setContentPane(create.getPanelMain());
+                create.getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                create.getFrame().pack();
 
-        home.panelMain = new JPanel();
-        home.panelMain.setBackground(Color.white);
-
-        Header header = new Header();
-        header.getHeader().setPreferredSize(new Dimension(1800,300));
-        home.panelMain.add(header.getHeader());
-
-        home.body = new JPanel();
-
-
-
-
-        home.list= new JPanel();
-        annonces.forEach(annonceEntity -> {
-            AdsList prl = new AdsList(annonceEntity.getNom(),annonceEntity.getPrix(),annonceEntity.getDateCreation());
-            home.list.add(prl.getPanelMain());
+                create.getFrame().setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                create.getFrame().setExtendedState(JFrame.MAXIMIZED_BOTH);
+                create.getFrame().setLocationRelativeTo(null);
+                create.getFrame().setVisible(true);
+            }
         });
+        //addAdBtn ----- START
 
-        home.body.add(home.list);
-        home.panelMain.add(home.body);
+        //searchAdBtn ----- START
+        searchAdBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
 
+                Search search = new Search(user);
+                search.getFrame().setContentPane(search.getPanelMain());
+                search.getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                search.getFrame().pack();
 
+                search.getFrame().setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                search.getFrame().setExtendedState(JFrame.MAXIMIZED_BOTH);
+                search.getFrame().setLocationRelativeTo(null);
+                search.getFrame().setVisible(true);
+            }
+        });
+        //searchAdBtn ----- START
 
-        //end
-        frame.setContentPane(home.panelMain);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
+        //myAccountBtn ----- START
+        myAccountBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
 
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
+                if(user != null){
+                    Search search = new Search();
+                    search.getFrame().setContentPane(search.getPanelMain());
+                    search.getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    search.getFrame().pack();
+
+                    search.getFrame().setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    search.getFrame().setExtendedState(JFrame.MAXIMIZED_BOTH);
+                    search.getFrame().setLocationRelativeTo(null);
+                    search.getFrame().setVisible(true);
+                } else {
+                    signin login = new signin();
+                    login.getFrame().setContentPane(login.getPanelMain());
+                    login.getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    login.getFrame().pack();
+
+                    login.getFrame().setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    login.getFrame().setExtendedState(JFrame.MAXIMIZED_BOTH);
+                    login.getFrame().setLocationRelativeTo(null);
+                    login.getFrame().setVisible(true);
+                }
+            }
+        });
+        //myAccountBtn ----- END
 
     }
 }

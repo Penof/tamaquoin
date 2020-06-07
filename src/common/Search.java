@@ -33,10 +33,22 @@ public class Search {
     private JTextField search_priceMax;
     private JButton search_confirm;
     private JButton addAdBtn;
+    private JButton myAccountBtn;
 
     private JFrame frame;
 
+    private userFields user;
+
     public Search() {
+        init();
+    }
+
+    public Search(userFields user) {
+        this.user = user;
+        init();
+    }
+
+    void init() {
         this.frame =  new JFrame("app");
 
         this.categories = new HashMap<>();
@@ -45,10 +57,14 @@ public class Search {
         this.cities = new HashMap<>();
         this.initCitiesList();
 
-        this.actionsListeners();
+        if(this.user != null) {
+            myAccountBtn.setText("Déconnexion");
+        }
 
-        //updateAdsList();
+        this.actionsListeners();
     }
+
+
 
     public JFrame getFrame() {
         return frame;
@@ -213,6 +229,37 @@ public class Search {
             }
         });
         //addAdBtn ----- END
+
+        //myAccountBtn ----- START
+        myAccountBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+
+                if(user != null){
+                    Search search = new Search();
+                    search.getFrame().setContentPane(search.getPanelMain());
+                    search.getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    search.getFrame().pack();
+
+                    search.getFrame().setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    search.getFrame().setExtendedState(JFrame.MAXIMIZED_BOTH);
+                    search.getFrame().setLocationRelativeTo(null);
+                    search.getFrame().setVisible(true);
+                } else {
+                    signin login = new signin();
+                    login.getFrame().setContentPane(login.getPanelMain());
+                    login.getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    login.getFrame().pack();
+
+                    login.getFrame().setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    login.getFrame().setExtendedState(JFrame.MAXIMIZED_BOTH);
+                    login.getFrame().setLocationRelativeTo(null);
+                    login.getFrame().setVisible(true);
+                }
+            }
+        });
+        //myAccountBtn ----- END
     }
 
     int getMapKeyByValue(Map<Integer, String> map, String value) {
@@ -233,7 +280,7 @@ public class Search {
         searchFields searchFields = new searchFields(categoryId,cityId,this.search_keywords.getText(),this.search_priceMin.getText(),this.search_priceMax.getText());
         this.getFrame().dispose();
 
-        home home = new home(searchFields);
+        home home = new home(searchFields, user);
         home.getFrame().setContentPane(home.getPanelMain());
         home.getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         home.getFrame().pack();

@@ -1,6 +1,7 @@
 package create;
 
 import ads.AdDetails;
+import common.Search;
 import dao.AnnonceDao;
 import dao.CoordonneeDao;
 import dao.SousCategorieDao;
@@ -38,6 +39,7 @@ public class createStep3 extends utils{
     private JFrame frame;
 
     private JComboBox cities_list;
+    private JButton cancelBtn;
     private Map<Integer, String> cities;
 
     private newad ad;
@@ -90,7 +92,7 @@ public class createStep3 extends utils{
         if(ad_price.getText().length() > 0) this.ad.setPrice(Double.parseDouble(ad_price.getText())); else flag = false;
 
         Integer cityId = getMapKeyByValue(cities, cities_list.getSelectedItem().toString());
-        if(cityId == -1) this.ad.setCityId(cityId); else flag = false;
+        if(cityId != -1) this.ad.setCityId(cityId); else flag = false;
 
         return flag;
     }
@@ -131,7 +133,7 @@ public class createStep3 extends utils{
                 ssCategoryManager.update(sousCategory);
 
                 frame.dispose();
-                AdDetails adDetails = new AdDetails(annonce.getIdAnnonce(), null);
+                AdDetails adDetails = new AdDetails(annonce.getIdAnnonce(), null, null);
                 adDetails.getFrame().setContentPane(adDetails.getPanelMain());
                 adDetails.getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 adDetails.getFrame().pack();
@@ -153,5 +155,24 @@ public class createStep3 extends utils{
             }
         });
         //previousStepBtn ----- END
+
+        //cancelBtn ----- START
+        cancelBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+
+                Search search = new Search();
+                search.getFrame().setContentPane(search.getPanelMain());
+                search.getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                search.getFrame().pack();
+
+                search.getFrame().setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                search.getFrame().setExtendedState(JFrame.MAXIMIZED_BOTH);
+                search.getFrame().setLocationRelativeTo(null);
+                search.getFrame().setVisible(true);
+            }
+        });
+        //cancelBtn ----- END
     }
 }

@@ -1,5 +1,6 @@
 package create;
 
+import common.Search;
 import dao.SousCategorieDao;
 import dao.jpa.JpaSousCategorieDao;
 import entities.SousCategorieEntity;
@@ -20,6 +21,7 @@ public class createStep1 extends utils{
     private JButton nextStepBtn;
 
     private JComboBox categories_list;
+    private JButton cancelBtn;
     private Map<Integer, String> categories;
 
     private JPanel testt;
@@ -84,5 +86,24 @@ public class createStep1 extends utils{
             }
         });
         //nextStepBtn ----- END
+
+        //cancelBtn ----- START
+        cancelBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+
+                Search search = new Search();
+                search.getFrame().setContentPane(search.getPanelMain());
+                search.getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                search.getFrame().pack();
+
+                search.getFrame().setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                search.getFrame().setExtendedState(JFrame.MAXIMIZED_BOTH);
+                search.getFrame().setLocationRelativeTo(null);
+                search.getFrame().setVisible(true);
+            }
+        });
+        //cancelBtn ----- END
     }
 }

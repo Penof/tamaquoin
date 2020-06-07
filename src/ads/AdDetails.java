@@ -23,7 +23,12 @@ public class AdDetails {
     private searchFields searchFields;
     private JFrame frame;
 
-    public AdDetails(int idAnnonce, searchFields searchFields) {
+    private userFields user;
+
+    public AdDetails(int idAnnonce, searchFields searchFields, userFields user) {
+
+        this.user = user;
+
         this.searchFields = searchFields;
         panelMain.addComponentListener(new ComponentAdapter() {
         });
@@ -48,7 +53,7 @@ public class AdDetails {
     public void goToProductsList(){
         this.getFrame().dispose();
 
-        home home = new home(searchFields);
+        home home = new home(searchFields, user);
         home.getFrame().setContentPane(home.getPanelMain());
         home.getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         home.getFrame().pack();
