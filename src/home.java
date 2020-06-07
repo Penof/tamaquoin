@@ -2,22 +2,19 @@ import entities.AnnonceEntity;
 import mockDBB.DDB;
 
 import javax.swing.*;
-import java.awt.*;
 import java.text.ParseException;
 import java.util.List;
 
 public class home {
     private JPanel panelMain;
     private JButton proposerUneAnnonceButton;
-    private JComboBox comboBox1;
-    private JComboBox comboBox2;
-    private JTextField textField2;
-    private JTextField textField3;
-    private JButton rechercherButton;
     private JButton filtrerButton;
     private JPanel list;
 
-    public JPanel home() {
+    private searchFields searchFields;
+
+    public JPanel home(searchFields searchFields) {
+        this.searchFields = searchFields;
         return this.panelMain;
     }
 
