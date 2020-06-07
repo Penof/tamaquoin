@@ -11,6 +11,12 @@ public class UtilisateurEntity {
     private String mail;
     private String mdp;
 
+    public UtilisateurEntity(String nom, String mail, String mdp) {
+        this.nom = nom;
+        this.mail = mail;
+        this.mdp = mdp;
+    }
+
     public void setIdUtilisateur(int idUtilisateur) {
         this.idUtilisateur = idUtilisateur;
     }

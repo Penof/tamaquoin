@@ -11,7 +11,6 @@ import java.util.Collection;
 
 public class JpaUtilisateurDao extends JpaDao<UtilisateurEntity> implements UtilisateurDao {
 
-
     @Override
     public boolean create(UtilisateurEntity obj) {
         return super.create(obj);
@@ -53,5 +52,10 @@ public class JpaUtilisateurDao extends JpaDao<UtilisateurEntity> implements Util
     @Override
     public void close() {
         super.close();
+    }
+
+    public UtilisateurEntity signin(String email, String password) {
+        Query query = session.createQuery("SELECT u FROM UtilisateurEntity u WHERE u.mail = :email AND u.mdp = :password").setParameter("password", password).setParameter("email", email);
+        return (UtilisateurEntity) query.getResultList().get(0);
     }
 }

@@ -1,5 +1,9 @@
 package common;
 
+import dao.UtilisateurDao;
+import dao.jpa.JpaUtilisateurDao;
+import entities.UtilisateurEntity;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,7 +11,6 @@ import java.awt.event.ActionListener;
 public class signup {
     private JPanel panelMain;
     private JTextField password;
-    private JTextField username;
     private JButton backBtn;
     private JButton saveBtn;
     private JTextField lastname;
@@ -37,11 +40,14 @@ public class signup {
 
         if(this.firstname.getText().length() > 0) this.user.setFirstname(this.firstname.getText()); else flag = false;
         if(this.lastname.getText().length() > 0) this.user.setFirstname(this.lastname.getText()); else flag = false;
-        if(this.username.getText().length() > 0) this.user.setFirstname(this.username.getText()); else flag = false;
         if(this.email.getText().length() > 0) this.user.setFirstname(this.email.getText()); else flag = false;
         if(this.password.getText().length() > 0) this.user.setFirstname(this.password.getText()); else flag = false;
 
-        //Requete bdd
+        UtilisateurDao manager = new JpaUtilisateurDao();
+        UtilisateurEntity user = new UtilisateurEntity(this.firstname.getText()+" "+this.lastname.getText(), this.email.getText(), this.password.getText());
+        manager.create(user);
+
+        System.out.println(user.getIdUtilisateur());
 
         return flag;
     }
