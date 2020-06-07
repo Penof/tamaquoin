@@ -14,12 +14,18 @@ public class AnnonceEntity {
     private Integer nombreVu;
     private Double prix;
     private String photo;
+    private SousCategorieEntity sousCategorie;
+    private CoordonneeEntity coordonnee;
 
-    public AnnonceEntity(String nom, Timestamp dateCreation, Integer nombreVu, Double prix) {
+    public AnnonceEntity() {
+    }
+
+    public AnnonceEntity(String nom, Timestamp dateCreation, String description, Double prix, Integer nombreVu) {
         this.nom = nom;
         this.dateCreation = dateCreation;
-        this.nombreVu = nombreVu;
+        this.description = description;
         this.prix = prix;
+        this.nombreVu = nombreVu;
     }
 
     public void setIdAnnonce(int idAnnonce) {
@@ -33,6 +39,28 @@ public class AnnonceEntity {
     public void setPrix(double prix) {
         this.prix = prix;
     }
+
+
+    @ManyToOne
+    @JoinColumn(name="id_coordonnee", referencedColumnName = "id_coordonnee")
+    public CoordonneeEntity getCoordonnee() {
+        return coordonnee;
+    }
+
+    public void setCoordonnee(CoordonneeEntity coordonnee) {
+        this.coordonnee = coordonnee;
+    }
+
+    @ManyToOne
+    @JoinColumn(name="id_sous_categorie", referencedColumnName = "id_sous_categorie")
+    public SousCategorieEntity getSousCategorie() {
+        return sousCategorie;
+    }
+
+    public void setSousCategorie(SousCategorieEntity sousCategorie) {
+        this.sousCategorie = sousCategorie;
+    }
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -27,7 +27,7 @@ public class DDB {
         try{
             Date date = dateFormat.parse("23/09/2007");
             long time = date.getTime();
-            AnnonceEntity annonce = new AnnonceEntity("POLO TDI - volkswagen",new Timestamp(time),0,135000.0);
+            AnnonceEntity annonce = new AnnonceEntity("POLO TDI - volkswagen",new Timestamp(time),"cc",135000.0,0);
             annonce.setIdAnnonce(1);
             annonce.setDescription("Une petite vnljbnnlknxvcmcskqmlckmqs, :knvfdoi jwdl");
             annonce.setPhoto("poloTdi.jpg");

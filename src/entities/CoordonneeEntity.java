@@ -1,6 +1,8 @@
 package entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -9,12 +11,25 @@ public class CoordonneeEntity {
     private Integer idCoordonnee;
     private String pays;
     private String ville;
+    private List<AnnonceEntity> annonces;
+
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="coordonnee")
+    public List<AnnonceEntity> getAnnonces() {
+        return annonces;
+    }
+
+    public void setAnnonces(List<AnnonceEntity> annonces) {
+        this.annonces = annonces;
+    }
+
+
 
     public void setIdCoordonnee(int idCoordonnee) {
         this.idCoordonnee = idCoordonnee;
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_coordonnee")
     public Integer getIdCoordonnee() {
         return idCoordonnee;
@@ -57,5 +72,25 @@ public class CoordonneeEntity {
     @Override
     public int hashCode() {
         return Objects.hash(idCoordonnee, pays, ville);
+    }
+
+    public boolean addAnnonce(AnnonceEntity a) {
+        if(a != null){
+            this.annonces.add(a);
+            a.setCoordonnee(this);
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    public CoordonneeEntity() {
+    }
+
+    public CoordonneeEntity(String pays, String ville) {
+        this.pays = pays;
+        this.ville = ville;
+        this.annonces = new ArrayList<AnnonceEntity>();
     }
 }
