@@ -1,3 +1,7 @@
+package common;
+
+import ads.AdDetails;
+import ads.AdsList;
 import entities.AnnonceEntity;
 import mockDBB.CritereDTO;
 import mockDBB.DDB;
@@ -5,7 +9,6 @@ import mockDBB.DDB;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.text.ParseException;
 import java.util.List;
 
 public class home {
@@ -52,7 +55,7 @@ public class home {
         panelMain = new JPanel();
         panelMain.setBackground(Color.white);
 
-        header header = new header();
+        Header header = new Header();
         header.getHeader().setPreferredSize(new Dimension(1800,300));
         panelMain.add(header.getHeader());
         body = new JPanel();
@@ -70,7 +73,7 @@ public class home {
 
         list= new JPanel();
         annonces.forEach(annonceEntity -> {
-            ProductList prl = new ProductList(annonceEntity.getNom(),annonceEntity.getPrix(),annonceEntity.getDateCreation());
+            AdsList prl = new AdsList(annonceEntity.getNom(),annonceEntity.getPrix(),annonceEntity.getDateCreation());
             prl.getPanelMain().addMouseListener(new MouseListener() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -107,7 +110,7 @@ public class home {
     public void goToProductsList(int idAnnonce){
         this.getFrame().dispose();
 
-        ProductDetails productDetails = new ProductDetails(idAnnonce, searchFields);
+        AdDetails productDetails = new AdDetails(idAnnonce, searchFields);
         productDetails.getFrame().setContentPane(productDetails.getPanelMain());
         productDetails.getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         productDetails.getFrame().pack();
@@ -136,7 +139,7 @@ public class home {
         home.panelMain = new JPanel();
         home.panelMain.setBackground(Color.white);
 
-        header header = new header();
+        Header header = new Header();
         header.getHeader().setPreferredSize(new Dimension(1800,300));
         home.panelMain.add(header.getHeader());
 
@@ -147,7 +150,7 @@ public class home {
 
         home.list= new JPanel();
         annonces.forEach(annonceEntity -> {
-            ProductList prl = new ProductList(annonceEntity.getNom(),annonceEntity.getPrix(),annonceEntity.getDateCreation());
+            AdsList prl = new AdsList(annonceEntity.getNom(),annonceEntity.getPrix(),annonceEntity.getDateCreation());
             home.list.add(prl.getPanelMain());
         });
 

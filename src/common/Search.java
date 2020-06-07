@@ -1,3 +1,5 @@
+package common;
+
 import create.createStep1;
 import dao.CoordonneeDao;
 import dao.SousCategorieDao;
@@ -15,7 +17,7 @@ import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 
-public class search {
+public class Search {
 
     private String pageTitle = "Accueil";
     private JPanel panelMain;
@@ -34,7 +36,7 @@ public class search {
 
     private JFrame frame;
 
-    public search() {
+    public Search() {
         this.frame =  new JFrame("app");
 
         this.categories = new HashMap<>();
@@ -258,7 +260,7 @@ public class search {
 
     public static void main(String args[]) throws ParseException {
 
-        search search = new search();
+        Search search = new Search();
 
         //end
         search.getFrame().setContentPane(search.panelMain);

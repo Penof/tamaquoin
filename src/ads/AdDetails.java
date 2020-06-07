@@ -1,4 +1,6 @@
-import com.sun.jndi.toolkit.dir.SearchFilter;
+package ads;
+
+import common.*;
 import entities.AnnonceEntity;
 import mockDBB.DDB;
 
@@ -7,7 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 
-public class ProductDetails {
+public class AdDetails {
     private JPanel panelMain;
     private JPanel image;
     private JButton retourButton;
@@ -19,7 +21,7 @@ public class ProductDetails {
     private searchFields searchFields;
     private JFrame frame;
 
-    public ProductDetails(int idAnnonce, searchFields searchFields) {
+    public AdDetails(int idAnnonce, searchFields searchFields) {
         this.searchFields = searchFields;
         panelMain.addComponentListener(new ComponentAdapter() {
         });

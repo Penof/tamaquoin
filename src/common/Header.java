@@ -1,6 +1,8 @@
+package common;
+
 import javax.swing.*;
 
-public class header {
+public class Header {
     private JButton searchAdBtn;
     private JLabel tamacoin;
     private JButton addAdBtn;

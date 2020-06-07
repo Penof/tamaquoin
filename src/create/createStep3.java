@@ -1,7 +1,7 @@
 package create;
 
+import ads.AdDetails;
 import dao.AnnonceDao;
-import dao.CategorieDao;
 import dao.CoordonneeDao;
 import dao.SousCategorieDao;
 import dao.jpa.JpaAnnonceDao;
@@ -11,7 +11,6 @@ import entities.AnnonceEntity;
 import entities.CoordonneeEntity;
 import entities.SousCategorieEntity;
 
-import java.awt.Font;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -84,14 +83,16 @@ public class createStep3 extends utils{
     }
 
     boolean saveData() {
-        Integer cityId = getMapKeyByValue(cities, cities_list.getSelectedItem().toString());
-        if(ad_title.getText().length() == 0 || ad_description.getText().length() == 0 || ad_price.getText().length() == 0 || cityId == -1) return false;
+        boolean flag = true;
 
-        this.ad.setTitle(ad_title.getText());
-        this.ad.setDescription(ad_description.getText());
-        this.ad.setPrice(Double.parseDouble(ad_price.getText()));
-        this.ad.setCityId(cityId);
-        return true;
+        if(ad_title.getText().length() > 0) this.ad.setTitle(ad_title.getText()); else flag = false;
+        if(ad_description.getText().length() > 0) this.ad.setDescription(ad_description.getText()); else flag = false;
+        if(ad_price.getText().length() > 0) this.ad.setPrice(Double.parseDouble(ad_price.getText())); else flag = false;
+
+        Integer cityId = getMapKeyByValue(cities, cities_list.getSelectedItem().toString());
+        if(cityId == -1) this.ad.setCityId(cityId); else flag = false;
+
+        return flag;
     }
 
     public void actionsListeners() {
@@ -129,8 +130,16 @@ public class createStep3 extends utils{
                 sousCategory.addAnnonce(annonce);
                 ssCategoryManager.update(sousCategory);
 
-                goToStep(frame, 4, ad);
+                frame.dispose();
+                AdDetails adDetails = new AdDetails(annonce.getIdAnnonce(), null);
+                adDetails.getFrame().setContentPane(adDetails.getPanelMain());
+                adDetails.getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                adDetails.getFrame().pack();
 
+                adDetails.getFrame().setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                adDetails.getFrame().setExtendedState(JFrame.MAXIMIZED_BOTH);
+                adDetails.getFrame().setLocationRelativeTo(null);
+                adDetails.getFrame().setVisible(true);
             }
         });
         //nextStepBtn ----- END
