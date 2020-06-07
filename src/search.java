@@ -66,6 +66,9 @@ public class search {
 
         list = (List<SousCategorieEntity>) manager.findAll();
 
+        this.search_categories.addItem("Toutes les catégories");
+        this.categories.put(-1, "Toutes les catégories");
+
         for (SousCategorieEntity elt : list) {
             this.search_categories.addItem(elt.getLabel());
             this.categories.put(elt.getIdSousCategorie(), elt.getLabel());
@@ -77,6 +80,9 @@ public class search {
         List<CoordonneeEntity> list = new ArrayList<CoordonneeEntity>();
 
         list = (List<CoordonneeEntity>) manager.findAll();
+
+        this.search_cities.addItem("Toute la France");
+        this.cities.put(-1, "Toute la France");
 
         for (CoordonneeEntity elt : list) {
             this.search_cities.addItem(elt.getVille());
@@ -218,6 +224,9 @@ public class search {
 
         Integer categoryId = getMapKeyByValue(categories, this.search_categories.getSelectedItem().toString());
         Integer cityId = getMapKeyByValue(cities, this.search_cities.getSelectedItem().toString());
+
+        categoryId = categoryId == -1 ? null : categoryId;
+        cityId = cityId == -1 ? null : cityId;
 
         searchFields searchFields = new searchFields(categoryId,cityId,this.search_keywords.getText(),this.search_priceMin.getText(),this.search_priceMax.getText());
         this.getFrame().dispose();
