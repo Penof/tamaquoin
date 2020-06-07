@@ -1,6 +1,8 @@
 package ads;
 
 import common.*;
+import dao.AnnonceDao;
+import dao.jpa.JpaAnnonceDao;
 import entities.AnnonceEntity;
 import mockDBB.DDB;
 
@@ -26,8 +28,9 @@ public class AdDetails {
         panelMain.addComponentListener(new ComponentAdapter() {
         });
         this.frame =  new JFrame("app");
-        DDB mockDDB = new DDB();
-        AnnonceEntity annonce = mockDDB.getAnnonceById(idAnnonce);
+
+        AnnonceDao annonceManager = new JpaAnnonceDao();
+        AnnonceEntity annonce = annonceManager.find(AnnonceEntity.class,idAnnonce);
         productName.setText(annonce.getNom());
         description.setText(annonce.getDescription());
         price.setText(String.valueOf(annonce.getPrix()));
