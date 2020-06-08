@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "utilisateur", schema = "tamaquoin", catalog = "")
+@Table(name = "utilisateur", schema = "2i_poo_tamacoin", catalog = "")
 public class UtilisateurEntity {
     private Integer idUtilisateur;
     private String nom;

@@ -4,11 +4,9 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "assoc_annonce_critere", schema = "tamaquoin", catalog = "")
+@Table(name = "assoc_annonce_critere", schema = "2i_poo_tamacoin", catalog = "")
 public class AssocAnnonceCritereEntity {
     private Integer idAssocAnnonceCritere;
-    private Integer idAnnonce;
-    private Integer idCritere;
     private Integer valeurInt;
     private String valeurString;
     private Double valeurDouble;
@@ -20,13 +18,6 @@ public class AssocAnnonceCritereEntity {
         this.idAssocAnnonceCritere = idAssocAnnonceCritere;
     }
 
-    public void setIdAnnonce(int idAnnonce) {
-        this.idAnnonce = idAnnonce;
-    }
-
-    public void setIdCritere(int idCritere) {
-        this.idCritere = idCritere;
-    }
 
 
     @ManyToOne
@@ -59,26 +50,6 @@ public class AssocAnnonceCritereEntity {
 
     public void setIdAssocAnnonceCritere(Integer idAssocAnnonceCritere) {
         this.idAssocAnnonceCritere = idAssocAnnonceCritere;
-    }
-
-    @Basic
-    @Column(name = "id_annonce")
-    public Integer getIdAnnonce() {
-        return idAnnonce;
-    }
-
-    public void setIdAnnonce(Integer idAnnonce) {
-        this.idAnnonce = idAnnonce;
-    }
-
-    @Basic
-    @Column(name = "id_critere")
-    public Integer getIdCritere() {
-        return idCritere;
-    }
-
-    public void setIdCritere(Integer idCritere) {
-        this.idCritere = idCritere;
     }
 
     @Basic
@@ -127,8 +98,7 @@ public class AssocAnnonceCritereEntity {
         if (o == null || getClass() != o.getClass()) return false;
         AssocAnnonceCritereEntity that = (AssocAnnonceCritereEntity) o;
         return Objects.equals(idAssocAnnonceCritere, that.idAssocAnnonceCritere) &&
-                Objects.equals(idAnnonce, that.idAnnonce) &&
-                Objects.equals(idCritere, that.idCritere) &&
+
                 Objects.equals(valeurInt, that.valeurInt) &&
                 Objects.equals(valeurString, that.valeurString) &&
                 Objects.equals(valeurDouble, that.valeurDouble) &&
@@ -137,7 +107,7 @@ public class AssocAnnonceCritereEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(idAssocAnnonceCritere, idAnnonce, idCritere, valeurInt, valeurString, valeurDouble, valeurBooleen);
+        return Objects.hash(idAssocAnnonceCritere, valeurInt, valeurString, valeurDouble, valeurBooleen);
     }
 
     public AssocAnnonceCritereEntity() {
