@@ -39,24 +39,6 @@ public class home {
 
     private JFrame frame;
 
-    public JPanel displayFilterByCheckPoint(String name, List<String> values){
-        JPanel result = new JPanel();
-        result.setLayout(new BoxLayout(result, BoxLayout.Y_AXIS));
-        JLabel title = new JLabel(name);
-        title.setFont(new Font(Font.SANS_SERIF, 1,18));
-        result.add(title);
-        values.forEach(value -> {
-            JLabel val = new JLabel(value);
-            JCheckBox checkBox = new JCheckBox();
-            val.setFont(new Font(Font.SANS_SERIF, 0, 15));
-            JPanel checkPanel = new JPanel();
-            checkPanel.add(checkBox);
-            checkPanel.add(val);
-            checkPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-            result.add(checkPanel);
-        });
-        return result;
-    }
 
     public home(searchFields searchFields, UtilisateurEntity user) {
         this.user = user;
@@ -71,17 +53,12 @@ public class home {
         System.out.println(searchFields.toString());
         List<AnnonceEntity> annonces = (List<AnnonceEntity>)((JpaAnnonceDao) adManager).getAnnoncesByCriteres(searchFields.getCategoryId(), searchFields.getCityId(), searchFields.getKeyword(), searchFields.getPriceMin(), searchFields.getPriceMax());
 
-
-        DDB mockDDB = new DDB();
-        List<CritereDTO> criteres = mockDDB.getFilterByCategory();
-        //CritereDao critereManager  = new JpaCritereDao();
-        //List<CritereEntity> criteres = (List<CritereEntity>) ((JpaCritereDao) critereManager).getByCategoryId(searchFields.getCategoryId());
-        //List<ValeurPossibleEntity> valeursPossibles = criteres.get(0).getValeursPossibles();
-
         filters.setLayout(new BoxLayout(filters, BoxLayout.Y_AXIS));
-        criteres.forEach(critereDTO -> {
-            filters.add(displayFilterByCheckPoint(critereDTO.critereEntity.getLabel(), critereDTO.valeur));
-        });
+        if(searchFields.getCategoryId() != null){
+            CritereDao manager = new JpaCritereDao();
+            Criteria criteria = new Criteria((List<CritereEntity>) ((JpaCritereDao) manager).getByCategoryId(searchFields.getCategoryId()),true);
+            filters.add(criteria.getPanelMain());
+        }
 
         this.number_ads.setText(annonces.size() + (annonces.size() > 1 ? " résultats" : " résultat"));
 

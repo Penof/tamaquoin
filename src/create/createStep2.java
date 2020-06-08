@@ -1,13 +1,17 @@
 package create;
 
+import common.Criteria;
 import common.Search;
 import dao.CritereDao;
 import dao.jpa.JpaCritereDao;
+import entities.CritereEntity;
 import entities.UtilisateurEntity;
+import mockDBB.CritereDTO;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class createStep2 extends utils{
     //Choisir une categorie
@@ -17,6 +21,7 @@ public class createStep2 extends utils{
     private JButton nextStepBtn;
     private JButton previousStepBtn;
     private JButton cancelBtn;
+    private JLabel list;
     private JPanel testt;
     private JFrame frame;
 
@@ -45,7 +50,8 @@ public class createStep2 extends utils{
     public void init(){
         System.out.println(this.ad.toString());
         CritereDao manager = new JpaCritereDao();
-        //List<CritereEntity> criteres = (List<CritereEntity>) ((JpaCritereDao) manager).getByCategoryId(1);
+        Criteria criteria = new Criteria((List<CritereEntity>) ((JpaCritereDao) manager).getByCategoryId(ad.getCategoryId()),false);
+        stepContent.add(criteria.getPanelMain());
     }
 
     public void actionsListeners() {
