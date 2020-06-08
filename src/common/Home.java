@@ -28,6 +28,7 @@ public class Home {
     private JPanel filters;
     private JLabel number_ads;
     private JButton myAccountBtn;
+    private JTextArea textArea1;
 
     private SearchFields searchFields;
     private UtilisateurEntity user;
@@ -58,12 +59,12 @@ public class Home {
         this.number_ads.setText(annonces.size() + (annonces.size() > 1 ? " résultats" : " résultat"));
 
         list.setLayout(new BoxLayout(list, BoxLayout.Y_AXIS));
-        annonces.forEach(annonceEntity -> {
-            AdsList prl = new AdsList(annonceEntity.getNom(),annonceEntity.getPrix(),annonceEntity.getDateCreation());
+        annonces.forEach(annonce -> {
+            SingleAd prl = new SingleAd(annonce);
             prl.getPanelMain().addMouseListener(new MouseListener() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    goToProductsList(annonceEntity.getIdAnnonce());
+                    goToProductsList(annonce.getIdAnnonce());
                 }
 
                 @Override
