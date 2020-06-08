@@ -29,13 +29,13 @@ public class Home {
     private JLabel number_ads;
     private JButton myAccountBtn;
 
-    private searchFields searchFields;
+    private SearchFields searchFields;
     private UtilisateurEntity user;
 
     private JFrame frame;
 
 
-    public Home(searchFields searchFields, UtilisateurEntity user) {
+    public Home(SearchFields searchFields, UtilisateurEntity user) {
         this.user = user;
         if(this.user != null) {
             this.myAccountBtn.setText("Déconnexion");

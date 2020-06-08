@@ -3,7 +3,7 @@ package common;
 import javax.swing.*;
 import java.util.Map;
 
-public class searchFields {
+public class SearchFields {
 
     private Integer categoryId;
     private Integer cityId;
@@ -11,7 +11,7 @@ public class searchFields {
     private Double priceMin;
     private Double priceMax;
 
-    public searchFields(Integer categoryId, Integer cityId, String keyword, Double priceMin, Double search_priceMax) {
+    public SearchFields(Integer categoryId, Integer cityId, String keyword, Double priceMin, Double search_priceMax) {
         this.categoryId = categoryId;
         this.cityId = cityId;
         this.keyword = keyword;

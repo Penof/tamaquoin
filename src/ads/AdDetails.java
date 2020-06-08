@@ -20,12 +20,12 @@ public class AdDetails {
     private JLabel description;
     private JLabel username;
     private JLabel date;
-    private searchFields searchFields;
+    private SearchFields searchFields;
     private JFrame frame;
 
     private UtilisateurEntity user;
 
-    public AdDetails(int idAnnonce, searchFields searchFields, UtilisateurEntity user) {
+    public AdDetails(int idAnnonce, SearchFields searchFields, UtilisateurEntity user) {
 
         this.user = user;
 

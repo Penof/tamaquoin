@@ -281,7 +281,7 @@ public class Search {
         Double price_min = this.search_priceMin.getText().equals("min") ? Double.parseDouble("0") : Double.parseDouble(this.search_priceMin.getText());
         Double price_max = this.search_priceMax.getText().equals("max") ? Double.parseDouble("100000000") : Double.parseDouble(this.search_priceMax.getText());
 
-        searchFields searchFields = new searchFields(categoryId, cityId, keyword, price_min, price_max);
+        SearchFields searchFields = new SearchFields(categoryId, cityId, keyword, price_min, price_max);
 
         this.getFrame().dispose();
 
