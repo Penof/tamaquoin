@@ -8,8 +8,6 @@ public class Main {
     public static void main(String args[]) throws ParseException {
 
         Search search = new Search();
-
-        //end
         search.getFrame().setContentPane(search.getPanelMain());
         search.getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         search.getFrame().pack();
@@ -18,6 +16,5 @@ public class Main {
         search.getFrame().setExtendedState(JFrame.MAXIMIZED_BOTH);
         search.getFrame().setLocationRelativeTo(null);
         search.getFrame().setVisible(true);
-
     }
 }
