@@ -2,18 +2,9 @@ package create;
 
 import ads.AdDetails;
 import common.Search;
-import dao.AnnonceDao;
-import dao.CoordonneeDao;
-import dao.SousCategorieDao;
-import dao.UtilisateurDao;
-import dao.jpa.JpaAnnonceDao;
-import dao.jpa.JpaCoordonneeDao;
-import dao.jpa.JpaSousCategorieDao;
-import dao.jpa.JpaUtilisateurDao;
-import entities.AnnonceEntity;
-import entities.CoordonneeEntity;
-import entities.SousCategorieEntity;
-import entities.UtilisateurEntity;
+import dao.*;
+import dao.jpa.*;
+import entities.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -127,6 +118,16 @@ public class createStep3 extends utils{
                 AnnonceDao manager = new JpaAnnonceDao();
                 AnnonceEntity annonce = new AnnonceEntity(ad.getTitle(), new Timestamp(System.currentTimeMillis()), ad.getDescription(), ad.getPrice(), 0);
 
+                CritereDao critereDao = new JpaCritereDao();
+                ad.getCritereEntityList().forEach(critere ->  {
+                    critere.getValeursPossibles().forEach(valeur -> {
+                       AssocAnnonceCritereEntity assocAnnonceCritereEntity =  new AssocAnnonceCritereEntity(valeur.getValeurString());
+                        annonce.addCriteresAnnonce(assocAnnonceCritereEntity);
+                        critere.addCriteresAnnonce(assocAnnonceCritereEntity);
+                        critereDao.update(critere);
+                        manager.update(annonce);
+                    });
+                });
 
 
                 CoordonneeDao coordonnesManager = new JpaCoordonneeDao();

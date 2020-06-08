@@ -15,7 +15,7 @@ public class Criteria {
 
     private JPanel panelMain;
     private JPanel body;
-    private List<CritereEntity> criteres;
+    private List<CritereEntity> criteres = new ArrayList<>();
 
     public Criteria(List<CritereEntity> critereDTOList, boolean home){
         body.setLayout(new BoxLayout(body, BoxLayout.Y_AXIS));
@@ -41,6 +41,7 @@ public class Criteria {
                                 bis.getValeursPossibles().clear();
                                 bis.getValeursPossibles().add(v);
                             }
+                            criteres.add(critereDTO);
                         }
 
                         @Override
