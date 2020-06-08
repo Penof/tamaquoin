@@ -29,9 +29,10 @@ public class createStep2 extends utils{
 
     private UtilisateurEntity user;
 
+    private Criteria criteria;
+
     public createStep2(newad ad, UtilisateurEntity user) {
         this.user = user;
-
         this.ad = ad;
         this.frame =  new JFrame("app");
         init();
@@ -50,7 +51,7 @@ public class createStep2 extends utils{
     public void init(){
         System.out.println(this.ad.toString());
         CritereDao manager = new JpaCritereDao();
-        Criteria criteria = new Criteria((List<CritereEntity>) ((JpaCritereDao) manager).getByCategoryId(ad.getCategoryId()),false);
+        criteria = new Criteria((List<CritereEntity>) ((JpaCritereDao) manager).getByCategoryId(ad.getCategoryId()),false);
         stepContent.add(criteria.getPanelMain());
     }
 
@@ -59,6 +60,7 @@ public class createStep2 extends utils{
         nextStepBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                ad.setCritereEntityList(criteria.getCriteres());
                 goToStep(frame, 3, ad, user);
             }
         });

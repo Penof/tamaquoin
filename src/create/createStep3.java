@@ -127,6 +127,8 @@ public class createStep3 extends utils{
                 AnnonceDao manager = new JpaAnnonceDao();
                 AnnonceEntity annonce = new AnnonceEntity(ad.getTitle(), new Timestamp(System.currentTimeMillis()), ad.getDescription(), ad.getPrice(), 0);
 
+
+
                 CoordonneeDao coordonnesManager = new JpaCoordonneeDao();
                 CoordonneeEntity coordonnee = coordonnesManager.find(CoordonneeEntity.class, ad.getCityId());
 

@@ -1,5 +1,9 @@
 package create;
 
+import entities.CritereEntity;
+
+import java.util.List;
+
 public class newad {
     private String title;
     private String description;
@@ -9,6 +13,8 @@ public class newad {
     private Integer cityId;
 
     private Integer userId;
+
+    private List<CritereEntity> critereEntityList;
 
     public void setTitle(String title) {
         this.title = title;
@@ -56,6 +62,14 @@ public class newad {
 
     public Integer getUserId() {
         return userId;
+    }
+
+    public List<CritereEntity> getCritereEntityList() {
+        return critereEntityList;
+    }
+
+    public void setCritereEntityList(List<CritereEntity> critereEntityList) {
+        this.critereEntityList = critereEntityList;
     }
 
     @Override
