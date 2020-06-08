@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class signin {
+public class Signin {
     private JPanel panelMain;
     private JTextField password;
     private JTextField email;
@@ -23,13 +23,13 @@ public class signin {
 
     private boolean redirectToCreateAd = false;
 
-    public signin(boolean redirectToCreateAd) {
+    public Signin(boolean redirectToCreateAd) {
         this.redirectToCreateAd = redirectToCreateAd;
         this.frame =  new JFrame("app");
         actionsListeners();
     }
 
-    public signin() {
+    public Signin() {
         this.frame =  new JFrame("app");
         actionsListeners();
     }
@@ -121,7 +121,7 @@ public class signin {
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
 
-                signup signup = new signup();
+                Signup signup = new Signup();
                 signup.getFrame().setContentPane(signup.getPanelMain());
                 signup.getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 signup.getFrame().pack();

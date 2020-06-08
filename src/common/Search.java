@@ -12,7 +12,6 @@ import entities.UtilisateurEntity;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
@@ -249,7 +248,7 @@ public class Search {
                     search.getFrame().setLocationRelativeTo(null);
                     search.getFrame().setVisible(true);
                 } else {
-                    signin login = new signin();
+                    Signin login = new Signin();
                     login.getFrame().setContentPane(login.getPanelMain());
                     login.getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                     login.getFrame().pack();
@@ -282,11 +281,11 @@ public class Search {
         Double price_min = this.search_priceMin.getText().equals("min") ? Double.parseDouble("0") : Double.parseDouble(this.search_priceMin.getText());
         Double price_max = this.search_priceMax.getText().equals("max") ? Double.parseDouble("100000000") : Double.parseDouble(this.search_priceMax.getText());
 
-        searchFields searchFields = new searchFields(categoryId, cityId, keyword, price_min, price_max);
+        SearchFields searchFields = new SearchFields(categoryId, cityId, keyword, price_min, price_max);
 
         this.getFrame().dispose();
 
-        home home = new home(searchFields, user);
+        Home home = new Home(searchFields, user);
         home.getFrame().setContentPane(home.getPanelMain());
         home.getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         home.getFrame().pack();
@@ -314,7 +313,7 @@ public class Search {
     public void goToLoginForm(){
         this.getFrame().dispose();
 
-        signin login = new signin(true);
+        Signin login = new Signin(true);
         login.getFrame().setContentPane(login.getPanelMain());
         login.getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         login.getFrame().pack();
@@ -323,21 +322,5 @@ public class Search {
         login.getFrame().setExtendedState(JFrame.MAXIMIZED_BOTH);
         login.getFrame().setLocationRelativeTo(null);
         login.getFrame().setVisible(true);
-    }
-
-    public static void main(String args[]) throws ParseException {
-
-        Search search = new Search();
-
-        //end
-        search.getFrame().setContentPane(search.panelMain);
-        search.getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        search.getFrame().pack();
-
-        search.getFrame().setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        search.getFrame().setExtendedState(JFrame.MAXIMIZED_BOTH);
-        search.getFrame().setLocationRelativeTo(null);
-        search.getFrame().setVisible(true);
-
     }
 }

@@ -5,7 +5,6 @@ import dao.AnnonceDao;
 import dao.jpa.JpaAnnonceDao;
 import entities.AnnonceEntity;
 import entities.UtilisateurEntity;
-import mockDBB.DDB;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -21,12 +20,12 @@ public class AdDetails {
     private JLabel description;
     private JLabel username;
     private JLabel date;
-    private searchFields searchFields;
+    private SearchFields searchFields;
     private JFrame frame;
 
     private UtilisateurEntity user;
 
-    public AdDetails(int idAnnonce, searchFields searchFields, UtilisateurEntity user) {
+    public AdDetails(int idAnnonce, SearchFields searchFields, UtilisateurEntity user) {
 
         this.user = user;
 
@@ -54,7 +53,7 @@ public class AdDetails {
     public void goToProductsList(){
         this.getFrame().dispose();
 
-        home home = new home(searchFields, user);
+        Home home = new Home(searchFields, user);
         home.getFrame().setContentPane(home.getPanelMain());
         home.getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         home.getFrame().pack();
