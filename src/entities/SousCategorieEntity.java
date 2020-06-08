@@ -91,10 +91,13 @@ public class SousCategorieEntity {
         critere.getSousCategories().add(this);
     }
 
+
+
     public SousCategorieEntity(String label) {
         this.label = label;
         this.annonces = new ArrayList<>();
         this.criteres = new ArrayList<>();
+        this.annonces = new ArrayList<>();
 
     }
 

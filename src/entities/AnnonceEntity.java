@@ -1,6 +1,8 @@
 package entities;
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -16,6 +18,7 @@ public class AnnonceEntity {
     private SousCategorieEntity sousCategorie;
     private CoordonneeEntity coordonnee;
     private UtilisateurEntity utilisateur;
+    private List<CritereEntity> criteres;
 
     public AnnonceEntity() {
     }
@@ -26,6 +29,7 @@ public class AnnonceEntity {
         this.description = description;
         this.prix = prix;
         this.nombreVu = nombreVu;
+        this.criteres = new ArrayList<>();
     }
 
     public void setIdAnnonce(int idAnnonce) {
@@ -69,6 +73,18 @@ public class AnnonceEntity {
 
     public void setUtilisateur(UtilisateurEntity utilisateur) {
         this.utilisateur = utilisateur;
+    }
+
+    @ManyToMany(cascade=CascadeType.ALL)
+    @JoinTable(name = "assoc_annonce_critere",
+            joinColumns = { @JoinColumn(name = "id_annonce") },
+            inverseJoinColumns = { @JoinColumn(name = "id_critere") })
+    public List<CritereEntity> getCriteres() {
+        return criteres;
+    }
+
+    public void setCriteres(List<CritereEntity> criteres) {
+        this.criteres = criteres;
     }
 
 
@@ -170,8 +186,15 @@ public class AnnonceEntity {
                 '}';
     }
 
+    public void addCritere(CritereEntity critere) {
+        this.criteres.add(critere);
+        critere.getAnnonces().add(this);
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(idAnnonce, nom, dateCreation, description, nombreVu, prix, photo);
     }
+
+
 }

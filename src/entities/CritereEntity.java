@@ -15,6 +15,7 @@ public class CritereEntity {
     private String typeColonne;
     private List<SousCategorieEntity> sousCategories;
     private List<ValeurPossibleEntity> valeursPossibles;
+    private List<AnnonceEntity> annonces;
 
     public void setIdCritere(int idCritere) {
         this.idCritere = idCritere;
@@ -32,8 +33,6 @@ public class CritereEntity {
     }
 
 
-
-
     @ManyToMany(mappedBy = "criteres")
     public List<SousCategorieEntity> getSousCategories() {
         return sousCategories;
@@ -42,6 +41,17 @@ public class CritereEntity {
     public void setSousCategories(List<SousCategorieEntity> sousCategories) {
         this.sousCategories = sousCategories;
     }
+
+
+    @ManyToMany(mappedBy = "criteres")
+    public List<AnnonceEntity> getAnnonces() {
+        return annonces;
+    }
+
+    public void setAnnonces(List<AnnonceEntity> annonces) {
+        this.annonces = annonces;
+    }
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -115,6 +125,11 @@ public class CritereEntity {
     public void addSousCategorie(SousCategorieEntity sousCategorie) {
         this.sousCategories.add(sousCategorie);
         sousCategorie.getCriteres().add(this);
+    }
+
+    public void addAnnonce(AnnonceEntity annonce) {
+        this.annonces.add(annonce);
+        annonce.getCriteres().add(this);
     }
 
     public CritereEntity() {
