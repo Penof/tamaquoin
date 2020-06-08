@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "assoc_souscategorie_critere", schema = "tamaquoin", catalog = "")
+@Table(name = "assoc_souscategorie_critere", schema = "2i_poo_tamacoin", catalog = "")
 public class AssocSouscategorieCritereEntity {
     private Integer idAssocSousCategorieCritere;
     private Integer idSousCategorie;

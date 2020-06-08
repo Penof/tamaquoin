@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "critere", schema = "tamaquoin", catalog = "")
+@Table(name = "critere", schema = "2i_poo_tamacoin", catalog = "")
 public class CritereEntity {
     private Integer idCritere;
     private String label;

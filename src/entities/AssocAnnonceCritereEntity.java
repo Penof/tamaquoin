@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "assoc_annonce_critere", schema = "tamaquoin", catalog = "")
+@Table(name = "assoc_annonce_critere", schema = "2i_poo_tamacoin", catalog = "")
 public class AssocAnnonceCritereEntity {
     private Integer idAssocAnnonceCritere;
     private Integer valeurInt;
@@ -17,6 +17,7 @@ public class AssocAnnonceCritereEntity {
     public void setIdAssocAnnonceCritere(int idAssocAnnonceCritere) {
         this.idAssocAnnonceCritere = idAssocAnnonceCritere;
     }
+
 
     public AssocAnnonceCritereEntity(String valeurString) {
         this.valeurString = valeurString;
