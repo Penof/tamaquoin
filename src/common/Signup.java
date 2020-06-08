@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class signup {
+public class Signup {
     private JPanel panelMain;
     private JTextField password;
     private JButton backBtn;
@@ -21,7 +21,7 @@ public class signup {
 
     private UtilisateurEntity user;
 
-    public signup() {
+    public Signup() {
         this.frame =  new JFrame("app");
         actionsListeners();
     }
@@ -60,7 +60,7 @@ public class signup {
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
 
-                signin login = new signin();
+                Signin login = new Signin();
                 login.getFrame().setContentPane(login.getPanelMain());
                 login.getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 login.getFrame().pack();
@@ -83,7 +83,7 @@ public class signup {
 
                 frame.dispose();
 
-                signin login = new signin();
+                Signin login = new Signin();
                 login.getFrame().setContentPane(login.getPanelMain());
                 login.getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 login.getFrame().pack();

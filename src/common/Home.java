@@ -6,20 +6,15 @@ import dao.AnnonceDao;
 import dao.CritereDao;
 import dao.jpa.JpaAnnonceDao;
 import dao.jpa.JpaCritereDao;
-import dao.jpa.JpaUtilisateurDao;
 import entities.AnnonceEntity;
 import entities.CritereEntity;
 import entities.UtilisateurEntity;
-import entities.ValeurPossibleEntity;
-import mockDBB.CritereDTO;
-import mockDBB.DDB;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
 
-public class home {
+public class Home {
     private JPanel panelMain;
     private JButton searchAdBtn;
 
@@ -40,7 +35,7 @@ public class home {
     private JFrame frame;
 
 
-    public home(searchFields searchFields, UtilisateurEntity user) {
+    public Home(searchFields searchFields, UtilisateurEntity user) {
         this.user = user;
         if(this.user != null) {
             this.myAccountBtn.setText("Déconnexion");
@@ -126,15 +121,27 @@ public class home {
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
 
-                createStep1 create = new createStep1(null, user);
-                create.getFrame().setContentPane(create.getPanelMain());
-                create.getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                create.getFrame().pack();
+                if(user == null) {
+                    Signin login = new Signin(true);
+                    login.getFrame().setContentPane(login.getPanelMain());
+                    login.getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    login.getFrame().pack();
 
-                create.getFrame().setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                create.getFrame().setExtendedState(JFrame.MAXIMIZED_BOTH);
-                create.getFrame().setLocationRelativeTo(null);
-                create.getFrame().setVisible(true);
+                    login.getFrame().setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    login.getFrame().setExtendedState(JFrame.MAXIMIZED_BOTH);
+                    login.getFrame().setLocationRelativeTo(null);
+                    login.getFrame().setVisible(true);
+                } else {
+                    createStep1 create = new createStep1(null, user);
+                    create.getFrame().setContentPane(create.getPanelMain());
+                    create.getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    create.getFrame().pack();
+
+                    create.getFrame().setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    create.getFrame().setExtendedState(JFrame.MAXIMIZED_BOTH);
+                    create.getFrame().setLocationRelativeTo(null);
+                    create.getFrame().setVisible(true);
+                }
             }
         });
         //addAdBtn ----- START
@@ -175,7 +182,7 @@ public class home {
                     search.getFrame().setLocationRelativeTo(null);
                     search.getFrame().setVisible(true);
                 } else {
-                    signin login = new signin();
+                    Signin login = new Signin();
                     login.getFrame().setContentPane(login.getPanelMain());
                     login.getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                     login.getFrame().pack();
