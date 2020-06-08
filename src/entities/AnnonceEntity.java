@@ -18,7 +18,7 @@ public class AnnonceEntity {
     private SousCategorieEntity sousCategorie;
     private CoordonneeEntity coordonnee;
     private UtilisateurEntity utilisateur;
-    private List<CritereEntity> criteres;
+    private List<AssocAnnonceCritereEntity> criteresAnnonce;
 
     public AnnonceEntity() {
     }
@@ -29,7 +29,8 @@ public class AnnonceEntity {
         this.description = description;
         this.prix = prix;
         this.nombreVu = nombreVu;
-        this.criteres = new ArrayList<>();
+        this.criteresAnnonce = new ArrayList<>();
+
     }
 
     public void setIdAnnonce(int idAnnonce) {
@@ -75,18 +76,14 @@ public class AnnonceEntity {
         this.utilisateur = utilisateur;
     }
 
-    @ManyToMany(cascade=CascadeType.ALL)
-    @JoinTable(name = "assoc_annonce_critere",
-            joinColumns = { @JoinColumn(name = "id_annonce") },
-            inverseJoinColumns = { @JoinColumn(name = "id_critere") })
-    public List<CritereEntity> getCriteres() {
-        return criteres;
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="annonce")
+    public List<AssocAnnonceCritereEntity> getCriteresAnnonce() {
+        return criteresAnnonce;
     }
 
-    public void setCriteres(List<CritereEntity> criteres) {
-        this.criteres = criteres;
+    public void setCriteresAnnonce(List<AssocAnnonceCritereEntity> criteresAnnonce) {
+        this.criteresAnnonce = criteresAnnonce;
     }
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -186,9 +183,8 @@ public class AnnonceEntity {
                 '}';
     }
 
-    public void addCritere(CritereEntity critere) {
-        this.criteres.add(critere);
-        critere.getAnnonces().add(this);
+    public void addCriteresAnnonce(AssocAnnonceCritereEntity criteresAnnonce) {
+        this.criteresAnnonce.add(criteresAnnonce);
     }
 
     @Override

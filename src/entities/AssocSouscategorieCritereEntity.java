@@ -23,6 +23,7 @@ public class AssocSouscategorieCritereEntity {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_assoc_sousCategorie_critere")
     public Integer getIdAssocSousCategorieCritere() {
         return idAssocSousCategorieCritere;

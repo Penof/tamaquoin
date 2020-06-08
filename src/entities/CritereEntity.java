@@ -15,7 +15,7 @@ public class CritereEntity {
     private String typeColonne;
     private List<SousCategorieEntity> sousCategories;
     private List<ValeurPossibleEntity> valeursPossibles;
-    private List<AnnonceEntity> annonces;
+    private List<AssocAnnonceCritereEntity> criteresAnnonce;
 
     public void setIdCritere(int idCritere) {
         this.idCritere = idCritere;
@@ -43,15 +43,14 @@ public class CritereEntity {
     }
 
 
-    @ManyToMany(mappedBy = "criteres")
-    public List<AnnonceEntity> getAnnonces() {
-        return annonces;
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="critere")
+    public List<AssocAnnonceCritereEntity> getCriteresAnnonce() {
+        return criteresAnnonce;
     }
 
-    public void setAnnonces(List<AnnonceEntity> annonces) {
-        this.annonces = annonces;
+    public void setCriteresAnnonce(List<AssocAnnonceCritereEntity> criteresAnnonce) {
+        this.criteresAnnonce = criteresAnnonce;
     }
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -127,9 +126,8 @@ public class CritereEntity {
         sousCategorie.getCriteres().add(this);
     }
 
-    public void addAnnonce(AnnonceEntity annonce) {
-        this.annonces.add(annonce);
-        annonce.getCriteres().add(this);
+    public void addCriteresAnnonce(AssocAnnonceCritereEntity criteresAnnonce) {
+        this.criteresAnnonce.add(criteresAnnonce);
     }
 
     public CritereEntity() {
@@ -141,5 +139,6 @@ public class CritereEntity {
         this.unite = unite;
         this.typeColonne = typeColonne;
         this.sousCategories = new ArrayList<>();
+        this.criteresAnnonce = new ArrayList<>();
     }
 }

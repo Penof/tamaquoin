@@ -13,6 +13,8 @@ public class AssocAnnonceCritereEntity {
     private String valeurString;
     private Double valeurDouble;
     private Byte valeurBooleen;
+    private AnnonceEntity annonce;
+    private CritereEntity critere;
 
     public void setIdAssocAnnonceCritere(int idAssocAnnonceCritere) {
         this.idAssocAnnonceCritere = idAssocAnnonceCritere;
@@ -26,7 +28,30 @@ public class AssocAnnonceCritereEntity {
         this.idCritere = idCritere;
     }
 
+
+    @ManyToOne
+    @JoinColumn(name="id_annonce", referencedColumnName = "id_annonce")
+    public AnnonceEntity getAnnonce() {
+        return annonce;
+    }
+
+    public void setAnnonce(AnnonceEntity annonce) {
+        this.annonce = annonce;
+    }
+
+    @ManyToOne
+    @JoinColumn(name="id_critere", referencedColumnName = "id_critere")
+    public CritereEntity getCritere() {
+        return critere;
+    }
+
+    public void setCritere(CritereEntity critere) {
+        this.critere = critere;
+    }
+
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_assoc_annonce_critere")
     public Integer getIdAssocAnnonceCritere() {
         return idAssocAnnonceCritere;
@@ -113,5 +138,8 @@ public class AssocAnnonceCritereEntity {
     @Override
     public int hashCode() {
         return Objects.hash(idAssocAnnonceCritere, idAnnonce, idCritere, valeurInt, valeurString, valeurDouble, valeurBooleen);
+    }
+
+    public AssocAnnonceCritereEntity() {
     }
 }
